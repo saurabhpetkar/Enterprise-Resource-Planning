@@ -3,7 +3,6 @@ import '../../scoped_models/main.dart';
 import './card.dart';
 import './events.dart';
 import './deadlines.dart';
-import './calender.dart';
 
 import './running_projects.dart';
 
@@ -171,7 +170,6 @@ Widget Page(BuildContext context, MainModel model) {
             SizedBox(
               height: 20,
             ),
-            Calender(),
           ],
         ),
       ),

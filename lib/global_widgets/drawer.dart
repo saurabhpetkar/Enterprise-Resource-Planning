@@ -62,6 +62,21 @@ Widget drawer(BuildContext context, Function logout) {
               Navigator.pushNamed(context, '/sales');
           },
         ),
+
+        //down: iff the person is HR
+        ListTile(
+          selected: name == '/hr' ? true: false,
+          title: Text(
+            'HR',
+            style: TextStyle(fontSize: 16, color: Colors.blueGrey),
+          ),
+          leading: Icon(Icons.list),
+          onTap: () {
+            Navigator.pop(context);
+            if(name != "/hr")
+              Navigator.pushNamed(context, '/hr');
+          },
+        ),
         ListTile(
           title: Text(
             'Privacy and Policy',
@@ -74,6 +89,7 @@ Widget drawer(BuildContext context, Function logout) {
               Navigator.pushNamed(context, '/privacy-policy');
           },
         ),
+
         ListTile(
           title: Text(
             'Logout',

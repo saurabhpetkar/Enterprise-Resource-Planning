@@ -12,6 +12,9 @@ import './pages/home/Events/eventList.dart';
 import './pages/home/Events/eventDetail.dart';
 import './pages/sales/salespage.dart';
 import './pages/sales/purchaseDetail.dart';
+import './pages/hr/cvList.dart';
+import './pages/hr/cvDetail.dart';
+
 
 
 
@@ -85,6 +88,15 @@ class _MyAppState extends State<MyApp> {
           _userMode == HomePageMode.not_authenticated
               ? LoginPage(_model)
               : PurchaseDetail(_model),
+
+          '/hr': (BuildContext context) =>
+          _userMode == HomePageMode.not_authenticated
+              ? LoginPage(_model)
+              : CVPage(_model),
+          '/cv-detail': (BuildContext context) =>
+          _userMode == HomePageMode.not_authenticated
+              ? LoginPage(_model)
+              : CVDetail(_model),
         },
         onGenerateRoute: (RouteSettings settings) {
 //          final List<String> pathElements = settings.name.split('/');

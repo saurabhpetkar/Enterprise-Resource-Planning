@@ -6,6 +6,8 @@ import 'package:rxdart/subjects.dart';
 import 'package:http/http.dart';
 import '../models/event.dart';
 import '../models/purchase.dart';
+import '../models/cv.dart';
+
 
 
 
@@ -18,6 +20,7 @@ class ConnectedModel extends Model {
   PublishSubject<HomePageMode> _usermode = PublishSubject();
   Event _selectedEvent;
   Purchase _selectedPurchase;
+  CV _selectedCV;
 
 }
 
@@ -216,4 +219,14 @@ class SalesModel extends ConnectedModel {
   Purchase get selectedPurchase {
     return _selectedPurchase;
   }
+}
+
+class HRModel extends ConnectedModel {
+  void setCV (CV cv){
+    _selectedCV = cv;
+  }
+  CV get selectedCV {
+    return _selectedCV;
+  }
+
 }
