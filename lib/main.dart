@@ -14,8 +14,8 @@ import './pages/sales/salespage.dart';
 import './pages/sales/purchaseDetail.dart';
 import './pages/hr/cvList.dart';
 import './pages/hr/cvDetail.dart';
-
-
+import './pages/finance/finance.dart';
+import './pages/profile/profile.dart';
 
 
 
@@ -55,7 +55,9 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          accentColor: Colors.black,
+          accentColor: Colors.greenAccent,
+          fontFamily: 'Roboto',
+
         ),
         home: _userMode == HomePageMode.authenticated
             ? HomePage(_model)
@@ -93,32 +95,34 @@ class _MyAppState extends State<MyApp> {
           _userMode == HomePageMode.not_authenticated
               ? LoginPage(_model)
               : CVPage(_model),
+
+          '/finance': (BuildContext context) =>
+          _userMode == HomePageMode.not_authenticated
+              ? LoginPage(_model)
+              : FinancePage(_model),
+
           '/cv-detail': (BuildContext context) =>
           _userMode == HomePageMode.not_authenticated
               ? LoginPage(_model)
               : CVDetail(_model),
+          '/profile': (BuildContext context) =>
+          _userMode == HomePageMode.not_authenticated
+              ? LoginPage(_model)
+              : ProfilePage(_model),
         },
-        onGenerateRoute: (RouteSettings settings) {
+//        onGenerateRoute: (RouteSettings settings) {
+//          print(settings);
 //          final List<String> pathElements = settings.name.split('/');
-//          if (pathElements[0] != '') {
-//            return null;
+//          String first = pathElements[2];
+//
+//          if (pathElements[1] == 'finance') {
+//            return Finance(first);
 //          }
-//          String first = pathElements[1];
-//          if (first == 'women') {
-//            final String subCatagory = pathElements[2];
-//            return MaterialPageRoute<bool>(
-//                builder: (BuildContext context) =>
-//                !_isAuthenticated ? LoginPage(_model) : ListPage(_model, pathElements[1], subCatagory));
-//          }
-//          else if(first == 'products'){
-//            final String product_id = pathElements[2];
-//            return MaterialPageRoute<bool>(
-//                builder: (BuildContext context) =>
-//                !_isAuthenticated ? LoginPage(_model) : ProductDetailpage(_model, product_id));
-//          }
-//          //ProductDetailpage(_model, product_id)
+//
+//
+//
 //          return null;
-        },
+//        },
         onUnknownRoute: (RouteSettings settings) {
           return MaterialPageRoute(
             builder: (BuildContext context) =>
@@ -128,4 +132,53 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+
 }
+
+//  MaterialPageRoute<bool> Finance (String first){
+//    if (first == 'AA') {
+//      return MaterialPageRoute<bool>(
+//          builder: (BuildContext context) =>
+//          _isAuthenticated ? LoginPage(_model) : AccountAdministrationPage(_model));
+//    }
+//    else if(first == 'CBA'){
+//      return MaterialPageRoute<bool>(
+//          builder: (BuildContext context) =>
+//          _isAuthenticated ? LoginPage(_model) : CashBankAccPage(_model));
+//    }
+//    else if(first == 'CCP'){
+//      return MaterialPageRoute<bool>(
+//          builder: (BuildContext context) =>
+//          !_isAuthenticated ? LoginPage(_model) : FinancePage(_model));
+//    }
+//    else if(first == 'AM'){
+//      return MaterialPageRoute<bool>(
+//          builder: (BuildContext context) =>
+//          !_isAuthenticated ? LoginPage(_model) : FinancePage(_model));
+//    }
+//    else if(first == 'APAR'){
+//      return MaterialPageRoute<bool>(
+//          builder: (BuildContext context) =>
+//          !_isAuthenticated ? LoginPage(_model) : FinancePage(_model));
+//    }
+//    else if(first == 'SC'){
+//      return MaterialPageRoute<bool>(
+//          builder: (BuildContext context) =>
+//          !_isAuthenticated ? LoginPage(_model) : FinancePage(_model));
+//    }
+//    else if(first == 'SA'){
+//      return MaterialPageRoute<bool>(
+//          builder: (BuildContext context) =>
+//          !_isAuthenticated ? LoginPage(_model) : FinancePage(_model));
+//    }
+//    else if(first == 'FA'){
+//      return MaterialPageRoute<bool>(
+//          builder: (BuildContext context) =>
+//          !_isAuthenticated ? LoginPage(_model) : FinancePage(_model));
+//    }
+//    else if(first == 'FAM'){
+//      return MaterialPageRoute<bool>(
+//          builder: (BuildContext context) =>
+//          !_isAuthenticated ? LoginPage(_model) : FinancePage(_model));
+//    }
+//  }

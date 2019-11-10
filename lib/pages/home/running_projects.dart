@@ -20,20 +20,7 @@ class RunningProjects extends StatelessWidget {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                // Where the linear gradient begins and ends
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                // Add one stop for each color. Stops should increase from 0 to 1
-                stops: [0.1, 0.5, 0.7, 0.9],
-                colors: [
-                  // Colors are easy thanks to Flutter's Colors class.
-                  Colors.green[800],
-                  Colors.green[700],
-                  Colors.green[600],
-                  Colors.green[400],
-                ],
-              ),
+              color: Color(0xFF2bbc7d),
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(5), topLeft: Radius.circular(5),),
               boxShadow: [

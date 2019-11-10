@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:rxdart/subjects.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import '../models/event.dart';
 import '../models/purchase.dart';
 import '../models/cv.dart';
@@ -192,6 +192,22 @@ class UserModel extends ConnectedModel {
       print('logout, automatic');
     });
   }
+
+  Future<Map<String, dynamic>> PasswordChange(String prev, String new_pass) async{
+    _isloading = true;
+    notifyListeners();
+
+    http.Response response = await http.get('http://jsonplaceholder.typicode.com/posts?_start=10&_limit=3');
+    print(response.statusCode);
+    Map<String, dynamic> res = {'success' : false, 'message': 'Incorrect previous Password'};
+    Map<String, dynamic> res2 = {'success' : true, 'message': 'Password Updated'};
+
+    _isloading = false;
+    notifyListeners();
+    return res2;
+
+
+  }
 }
 
 class UtilityModel extends ConnectedModel {
@@ -222,11 +238,28 @@ class SalesModel extends ConnectedModel {
 }
 
 class HRModel extends ConnectedModel {
+  List<int> _cv_index = [];
+  void insertIndex(int index){
+    _cv_index.add(index);
+  }
+
+  void emptyCVIndex(){
+    _cv_index = [];
+  }
+
+  bool searchIndex(int index){
+    return _cv_index.contains(index); //true if yes, else false
+  }
+
   void setCV (CV cv){
     _selectedCV = cv;
   }
   CV get selectedCV {
     return _selectedCV;
   }
+
+}
+
+class FinanceModel extends ConnectedModel {
 
 }

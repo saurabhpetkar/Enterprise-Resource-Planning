@@ -5,7 +5,6 @@ import '../../global_widgets/drawer.dart';
 import 'package:http/http.dart' as http;
 import '../../models/cv.dart';
 
-
 class CVPage extends StatefulWidget {
   final MainModel model;
 
@@ -18,6 +17,13 @@ class CVPage extends StatefulWidget {
 }
 
 class CVPageState extends State<CVPage> {
+  @override
+  void initState() {
+    print('initstate of cv list');
+    widget.model.emptyCVIndex();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,10 +46,15 @@ class CVPageState extends State<CVPage> {
       ),
       body: widget.model.isLoading
           ? Center(
-        child: CircularProgressIndicator(),
-      )
-          : PagewiseListViewExample(widget.model.logout, widget.model.setCV),
+              child: CircularProgressIndicator(),
+            )
+          : PagewiseListViewExample(
+              widget.model.logout, widget.model.setCV, SetState, widget.model),
     );
+  }
+
+  void SetState() {
+    setState(() {});
   }
 }
 
@@ -52,36 +63,38 @@ class PagewiseListViewExample extends StatelessWidget {
   final double rad = 12;
   final Function logout;
   final Function setCV;
+  final Function SetState;
+  final MainModel model;
 
-
-  PagewiseListViewExample(this.logout, this.setCV);
+  PagewiseListViewExample(this.logout, this.setCV, this.SetState, this.model);
 
   @override
   Widget build(BuildContext context) {
     return Scrollbar(
       child: PagewiseListView(
         pageSize: PAGE_SIZE,
-        itemBuilder: this._itemBuilder,
+        itemBuilder: _itemBuilder,
         pageFuture: (pageIndex) =>
             BackendService.getPosts(pageIndex * PAGE_SIZE, PAGE_SIZE),
       ),
     );
   }
 
-  void SetPurchase(CV cv){
+  void SetPurchase(CV cv) {
     setCV(cv);
   }
 
-  Widget _itemBuilder(context, CV entry, _) {
+  Widget _itemBuilder(context, CV entry, int index) {
     double width = MediaQuery.of(context).size.width;
-    return Column(
+    return model.searchIndex(index) ? SizedBox() : Column(
       children: <Widget>[
         Padding(
           padding: EdgeInsets.only(top: 5, right: 2, left: 2),
           child: GestureDetector(
             onTap: () {
               SetPurchase(entry);
-              Navigator.pushNamed(context, '/cv-detail');
+              model.insertIndex(index);
+              Navigator.pushNamed(context, '/cv-detail').then(SetState());
             },
             child: Container(
               padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
@@ -108,7 +121,8 @@ class PagewiseListViewExample extends StatelessWidget {
                               child: Center(
                                 child: Text(
                                   entry.day.toString(),
-                                  style: TextStyle(fontSize: 10),
+                                  style: TextStyle(
+                                      fontSize: 10, color: Colors.black),
                                 ),
                               ),
                             ),
@@ -139,7 +153,13 @@ class PagewiseListViewExample extends StatelessWidget {
                             width: width - 84,
                             padding: EdgeInsets.symmetric(
                                 vertical: 3, horizontal: 10),
-                            child: Text(entry.name),
+                            child: Text(
+                              entry.name,
+                              style: TextStyle(
+                                  color: model.searchIndex(index)
+                                      ? Colors.red
+                                      : Colors.black),
+                            ),
                           ),
                           Container(
                             width: width - 84,
@@ -176,12 +196,10 @@ class PagewiseListViewExample extends StatelessWidget {
   }
 }
 
-
-
 class BackendService {
   static Future<List<CV>> getPosts(offset, limit) async {
     final responseBody = (await http.get(
-        'http://jsonplaceholder.typicode.com/posts?_start=$offset&_limit=$limit'))
+            'http://jsonplaceholder.typicode.com/posts?_start=$offset&_limit=$limit'))
         .body;
 
     return data;
@@ -198,25 +216,151 @@ class JsonListToCVList {
   }
 
   static List<CV> fromJsonList(jsonList) {
-    return jsonList
-        .map<CV>((obj) => JsonListToCVList.fromJson(obj))
-        .toList();
+    return jsonList.map<CV>((obj) => JsonListToCVList.fromJson(obj)).toList();
   }
 }
 
 List<CV> data = [
-  CV(name: 'deepesh', email: 'xyz@gmail.com', cv_link: 'https://pdftron.s3.amazonaws.com/downloads/pdfref.pdf', state: 'Bihar', day: 1, month: 'Jan', year: 2019, hour: 18, min: 38),
-  CV(name: 'saurabh', email: 'xyz@gmail.com', cv_link: 'https://pdftron.s3.amazonaws.com/downloads/pdfref.pdf', state: 'Maharashtra', day: 2, month: 'Jan', year: 2019, hour: 18, min: 38),
-  CV(name: 'atul', email: 'xyz@gmail.com', cv_link: 'https://pdftron.s3.amazonaws.com/downloads/pdfref.pdf', state: 'Bihar', day: 3, month: 'Jan', year: 2019, hour: 18, min: 38),
-  CV(name: 'kolpo', email: 'xyz@gmail.com', cv_link: 'https://pdftron.s3.amazonaws.com/downloads/pdfref.pdf', state: 'Assam', day: 4, month: 'Jan', year: 2019, hour: 18, min: 38),
-  CV(name: 'sid G', email: 'xyz@gmail.com', cv_link: 'https://pdftron.s3.amazonaws.com/downloads/pdfref.pdf', state: 'Bihar', day: 5, month: 'Jan', year: 2019, hour: 18, min: 38),
-  CV(name: 'akshay', email: 'xyz@gmail.com', cv_link: 'https://pdftron.s3.amazonaws.com/downloads/pdfref.pdf', state: 'UP', day: 6, month: 'Jan', year: 2019, hour: 18, min: 38),
-  CV(name: 'sukirti', email: 'xyz@gmail.com', cv_link: 'https://pdftron.s3.amazonaws.com/downloads/pdfref.pdf', state: 'AP', day: 7, month: 'Jan', year: 2019, hour: 18, min: 38),
-  CV(name: 'sri babu', email: 'xyz@gmail.com', cv_link: 'https://pdftron.s3.amazonaws.com/downloads/pdfref.pdf', state: 'AP', day: 8, month: 'Jan', year: 2019, hour: 18, min: 38),
-  CV(name: 'sai krishna', email: 'xyz@gmail.com', cv_link: 'https://pdftron.s3.amazonaws.com/downloads/pdfref.pdf', state: 'AP', day: 9, month: 'Jan', year: 2019, hour: 18, min: 38),
-  CV(name: 'ankur', email: 'xyz@gmail.com', cv_link: 'https://pdftron.s3.amazonaws.com/downloads/pdfref.pdf', state: 'UP', day: 10, month: 'Jan', year: 2019, hour: 18, min: 38),
-
+  CV(
+      name: 'deepesh',
+      email: 'xyz@gmail.com',
+      cv_link: 'http://www.africau.edu/images/default/sample.pdf',
+      state: 'Bihar',
+      day: 1,
+      month: 'Jan',
+      year: 2019,
+      hour: 18,
+      min: 38),
+  CV(
+      name: 'saurabh',
+      email: 'xyz@gmail.com',
+      cv_link: 'http://www.africau.edu/images/default/sample.pdf',
+      state: 'Maharashtra',
+      day: 2,
+      month: 'Jan',
+      year: 2019,
+      hour: 18,
+      min: 38),
+  CV(
+      name: 'atul',
+      email: 'xyz@gmail.com',
+      cv_link: 'http://www.africau.edu/images/default/sample.pdf',
+      state: 'Bihar',
+      day: 3,
+      month: 'Jan',
+      year: 2019,
+      hour: 18,
+      min: 38),
+  CV(
+      name: 'kolpo',
+      email: 'xyz@gmail.com',
+      cv_link: 'http://www.africau.edu/images/default/sample.pdf',
+      state: 'Assam',
+      day: 4,
+      month: 'Jan',
+      year: 2019,
+      hour: 18,
+      min: 38),
+  CV(
+      name: 'sid G',
+      email: 'xyz@gmail.com',
+      cv_link: 'http://www.africau.edu/images/default/sample.pdf',
+      state: 'Bihar',
+      day: 5,
+      month: 'Jan',
+      year: 2019,
+      hour: 18,
+      min: 38),
+  CV(
+      name: 'akshay',
+      email: 'xyz@gmail.com',
+      cv_link: 'http://www.africau.edu/images/default/sample.pdf',
+      state: 'UP',
+      day: 6,
+      month: 'Jan',
+      year: 2019,
+      hour: 18,
+      min: 38),
+  CV(
+      name: 'sukirti',
+      email: 'xyz@gmail.com',
+      cv_link: 'http://www.africau.edu/images/default/sample.pdf',
+      state: 'AP',
+      day: 7,
+      month: 'Jan',
+      year: 2019,
+      hour: 18,
+      min: 38),
+  CV(
+      name: 'sri babu',
+      email: 'xyz@gmail.com',
+      cv_link: 'http://www.africau.edu/images/default/sample.pdf',
+      state: 'AP',
+      day: 8,
+      month: 'Jan',
+      year: 2019,
+      hour: 18,
+      min: 38),
+  CV(
+      name: 'sai krishna',
+      email: 'xyz@gmail.com',
+      cv_link: 'https://pdftron.s3.amazonaws.com/downloads/pdfref.pdf',
+      state: 'AP',
+      day: 9,
+      month: 'Jan',
+      year: 2019,
+      hour: 18,
+      min: 38),
+  CV(
+      name: 'ankur',
+      email: 'xyz@gmail.com',
+      cv_link: 'https://pdftron.s3.amazonaws.com/downloads/pdfref.pdf',
+      state: 'UP',
+      day: 10,
+      month: 'Jan',
+      year: 2019,
+      hour: 18,
+      min: 38),
 ];
 
-
-
+//
+//class CV {
+//  final String name;
+//  final String email;
+//  final String cv_link;
+//  final String state;
+//  final int day;
+//  final String month;
+//  final int year;
+//  final int hour;
+//  final int min;
+//
+//
+//  CV({
+//    @required this.name,
+//    @required this.email,
+//    @required this.cv_link,
+//    @required this.state,
+//    @required this.day,
+//    @required this.month,
+//    @required this.year,
+//    @required this.hour,
+//    @required this.min,
+//
+//
+//  });
+//}
+//
+//List<CV> data = [
+//  CV(name: 'blah1', email: 'xyz@gmail.com', cv_link: 'http://www.africau.edu/images/default/sample.pdf', state: 'blah1', day: 1, month: 'Jan', year: 2019, hour: 18, min: 38),
+//  CV(name: 'blah2', email: 'xyz@gmail.com', cv_link: 'http://www.africau.edu/images/default/sample.pdf', state: 'blah2', day: 2, month: 'Jan', year: 2019, hour: 18, min: 38),
+//  CV(name: 'blah3', email: 'xyz@gmail.com', cv_link: 'http://www.africau.edu/images/default/sample.pdf', state: 'blah3', day: 3, month: 'Jan', year: 2019, hour: 18, min: 38),
+//  CV(name: 'blah4', email: 'xyz@gmail.com', cv_link: 'http://www.africau.edu/images/default/sample.pdf', state: 'blah4', day: 4, month: 'Jan', year: 2019, hour: 18, min: 38),
+//  CV(name: 'blah5', email: 'xyz@gmail.com', cv_link: 'http://www.africau.edu/images/default/sample.pdf', state: 'blah5', day: 5, month: 'Jan', year: 2019, hour: 18, min: 38),
+//  CV(name: 'blah6', email: 'xyz@gmail.com', cv_link: 'http://www.africau.edu/images/default/sample.pdf', state: 'blah6', day: 6, month: 'Jan', year: 2019, hour: 18, min: 38),
+//  CV(name: 'blah7', email: 'xyz@gmail.com', cv_link: 'http://www.africau.edu/images/default/sample.pdf', state: 'blah7', day: 7, month: 'Jan', year: 2019, hour: 18, min: 38),
+//  CV(name: 'blah8', email: 'xyz@gmail.com', cv_link: 'http://www.africau.edu/images/default/sample.pdf', state: 'blah8', day: 8, month: 'Jan', year: 2019, hour: 18, min: 38),
+//  CV(name: 'blah9', email: 'xyz@gmail.com', cv_link: 'https://pdftron.s3.amazonaws.com/downloads/pdfref.pdf', state: 'blah9', day: 9, month: 'Jan', year: 2019, hour: 18, min: 38),
+//  CV(name: 'blah10', email: 'xyz@gmail.com', cv_link: 'https://pdftron.s3.amazonaws.com/downloads/pdfref.pdf', state: 'blah10', day: 10, month: 'Jan', year: 2019, hour: 18, min: 38),
+//
+//];

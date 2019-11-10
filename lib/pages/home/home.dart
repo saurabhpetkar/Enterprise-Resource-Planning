@@ -11,6 +11,7 @@ import '../../global_widgets/drawer.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../models/event.dart';
 //import '../../experiment/page_drawer.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,13 +32,11 @@ class HomePageState extends State<HomePage>
   PageController controller = new PageController(
     initialPage: 0,
     viewportFraction: 1.0,
-  );  var currentPageValue = 0.0;
+  );
+  var currentPageValue = 0.0;
 
   @override
   void initState() {
-//    widget.model.fetchHomeData();
-
-
     super.initState();
   }
 
@@ -54,6 +53,10 @@ class HomePageState extends State<HomePage>
     return Scaffold(
       key: _scaffoldKey,
       drawer: drawer(context, widget.model.logout),
+      appBar: AppBar(
+        backgroundColor: Colors.greenAccent,
+        title: Text('Home'),
+      ),
       body: SafeArea(
         child: widget.model.isLoading
             ? Center(
@@ -65,11 +68,60 @@ class HomePageState extends State<HomePage>
   }
 }
 
-List<Map<String, dynamic>> card_info = [
-  {'heading': 'Active Clients', 'icon': Icons.people, 'notifications': 31},
-  {'heading': 'Active Admins', 'icon': Icons.spa, 'notifications': 6},
-  {'heading': 'Total Expenses', 'icon': Icons.attach_money, 'notifications': 0},
-  {'heading': 'Running Projects', 'icon': Icons.palette, 'notifications': 2},
+List<Event> data1 = [
+  Event(
+    day: 1.toString(),
+    month: 'DEC',
+    year: 2019.toString(),
+    title: 'PyCon',
+    address: 'Somewhere in Chennai',
+    picture:
+        'https://cdn.pixabay.com/photo/2019/09/28/20/21/trees-4511721_960_720.jpg',
+    organizer: 'someone rich',
+    description:
+        'you will have fun meeting people, get goodies and amazing food, will be able to make connections with awesome people',
+    id: '1',
+  ),
+  Event(
+    day: 2.toString(),
+    month: 'DEC',
+    year: 2019.toString(),
+    title: 'Flutter',
+    address: 'Somewhere in Bangalore',
+    picture:
+        'https://cdn.pixabay.com/photo/2019/09/25/09/36/team-4503157_960_720.jpg',
+    organizer: 'someone rich',
+    description:
+        'you will have fun meeting people, get goodies and amazing food, will be able to make connections with awesome people',
+    id: '2',
+  ),
+  Event(
+    day: '3',
+    month: 'DEC',
+    year: 2019.toString(),
+    title: 'Javascript',
+    address: 'Somewhere in hyd',
+    picture:
+        'https://cdn.pixabay.com/photo/2019/09/10/15/10/dolomites-4466357_960_720.jpg',
+    organizer: 'someone rich',
+    description:
+        'you will have fun meeting people, get goodies and amazing food, will be able to make connections with awesome people',
+    id: '3',
+  ),
+//
+  Event(
+    day: '4',
+    month: 'DEC',
+    year: 2019.toString(),
+    title: 'PyCharm',
+    address: 'Somewhere in Delhi',
+    picture:
+        'https://cdn.pixabay.com/photo/2019/10/02/16/56/landscape-4521413_960_720.jpg',
+    organizer: 'someone rich',
+    description:
+        'you will have fun meeting people, get goodies and amazing food, will be able to make connections with awesome people',
+    id: '4',
+  ),
 ];
 
 List<Map<String, dynamic>> events = [
@@ -141,176 +193,52 @@ List<Map<String, dynamic>> deadlines = [
   {'name': 'Computer Vision', 'date': '13 Nov, 2019', 'link': '/deadline/122'},
 ];
 
+List<Map<String, dynamic>> card_info = [
+  {'heading': 'Active Clients', 'icon': Icons.people, 'notifications': 31},
+  {'heading': 'Active Admins', 'icon': Icons.spa, 'notifications': 6},
+  {'heading': 'Total Expenses', 'icon': Icons.attach_money, 'notifications': 0},
+  {'heading': 'Running Projects', 'icon': Icons.palette, 'notifications': 2},
+];
+
 Widget Page(BuildContext context, MainModel model) {
-  var focusNode = new FocusNode();
-  return Stack(
-    children: <Widget>[
-      Scrollbar(
-        child: ListView(
-          children: <Widget>[
-            SizedBox(
-              height: 55,
-            ),
-            card(card_info[0]),
-            card(card_info[1]),
-            card(card_info[2]),
-            card(card_info[3]),
-            SizedBox(
-              height: 20,
-            ),
-            Events(events, model),
-            SizedBox(
-              height: 20,
-            ),
-            RunningProjects(projects),
-            SizedBox(
-              height: 20,
-            ),
-            Deadlines(deadlines),
-            SizedBox(
-              height: 20,
-            ),
-          ],
+  return Scrollbar(
+    child: ListView(
+      children: <Widget>[
+        SizedBox(
+          height: 10,
         ),
-      ),
-//      Positioned(
-//        left: MediaQuery.of(context).size.width * 0.025,
-//        top: 5,
-//        child: Container(
-//          height: 50,
-//          width: MediaQuery.of(context).size.width * 0.95,
-//          decoration: BoxDecoration(
-//            color: Colors.white,
-//            borderRadius: BorderRadius.horizontal(
-//              left: Radius.circular(25),
-//              right: Radius.circular(25),
-//            ),
-//            boxShadow: [
-//              BoxShadow(
-//                color: Colors.black26,
-//                blurRadius: 10,
-//                offset: Offset(1, 3),
-//              ),
-//            ],
-//          ),
-//          child: Row(
-//            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//            children: <Widget>[
-//              Container(
-//                padding: EdgeInsets.only(left: 20, bottom: 0),
-//                width: MediaQuery.of(context).size.width * 0.95 - 60,
-//                child: TextField(
-////
-//                    ),
-//              ),
-//              MaterialButton(
-//                onPressed: () {},
-//                minWidth: 60,
-//                height: 55,
-//                color: Colors.lightBlueAccent,
-//                child: Icon(
-//                  Icons.search,
-//                  color: Colors.white,
-//                  size: 25,
-//                ),
-//                shape: RoundedRectangleBorder(
-//                  borderRadius: BorderRadius.horizontal(
-//                    right: Radius.circular(25),
-//                  ),
-//                ),
-//              ),
-//            ],
-//          ),
-//        ),
-//      ),
-    ],
+        card(card_info),
+        SizedBox(
+          height: 20,
+        ),
+        Events(data1, model),
+        SizedBox(
+          height: 20,
+        ),
+        RunningProjects(projects),
+        SizedBox(
+          height: 20,
+        ),
+        Deadlines(deadlines),
+        SizedBox(
+          height: 15,
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('Handcrafted with '),
+              Icon(Icons.favorite, color: Colors.pink,),
+              Text(' in India.'),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 15,
+        ),
+      ],
+    ),
   );
 }
-
-//
-//  Widget page_drawer() {
-//    return Drawer(
-//      child: PageView(
-//
-//        controller: controller,
-//        children: <Widget>[
-//          Column(
-//            children: <Widget>[
-//              ListTile(
-//                title: Text(
-//                  'go to page 1',
-//                  style: TextStyle(fontSize: 16, color: Colors.blueGrey),
-//                ),
-//                leading: Icon(Icons.arrow_downward),
-//                onTap: () {
-//                  gotopg1();
-//                },
-//              ),
-//              ListTile(
-//                title: Text(
-//                  'go to page 2',
-//                  style: TextStyle(fontSize: 16, color: Colors.blueGrey),
-//                ),
-//                leading: Icon(Icons.arrow_downward),
-//                onTap: () {
-//                  gotopg2();
-//                },
-//              ),
-//            ],
-//          ),
-//          Container(
-//            color: Colors.greenAccent,
-//            child: Center(
-//              child: RaisedButton(
-//                color: Colors.grey,
-//                onPressed: () {
-//                  controller.animateToPage(
-//                    0,
-//                    duration: const Duration(milliseconds: 400),
-//                    curve: Curves.easeInOut,
-//                  );
-//                },
-//                child: Text('go to page 0'),
-//              ),
-//            ),
-//          ),
-//          Container(
-//            color: Colors.yellow,
-//            child: Center(
-//              child: RaisedButton(
-//                color: Colors.blue,
-//                onPressed: () {
-//                  gotopg0();
-//                },
-//                child: Text('go to page 0'),
-//              ),
-//            ),
-//          ),
-//        ],
-//      ),
-//    );
-//  }
-//
-//  gotopg0(){
-//    controller.animateToPage(
-//      0,
-//      duration: const Duration(milliseconds: 400),
-//      curve: Curves.easeInOut,
-//    );
-//  }
-//  gotopg1(){
-//    controller.animateToPage(
-//      1,
-//      duration: const Duration(milliseconds: 400),
-//      curve: Curves.easeInOut,
-//    );
-//  }
-//  gotopg2(){
-//    controller.animateToPage(
-//      2,
-//      duration: const Duration(milliseconds: 400),
-//      curve: Curves.easeInOut,
-//    );
-//  }
-//
-

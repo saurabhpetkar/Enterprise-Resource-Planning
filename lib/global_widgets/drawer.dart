@@ -4,7 +4,7 @@ import 'package:path/path.dart';
 Widget drawer(BuildContext context, Function logout) {
   final name = ModalRoute.of(context).settings.name;
   return Drawer(
-    child: Column(
+    child: ListView(
       children: <Widget>[
         UserAccountsDrawerHeader(
           accountName: Text(
@@ -78,6 +78,19 @@ Widget drawer(BuildContext context, Function logout) {
           },
         ),
         ListTile(
+          selected: name == '/finance' ? true: false,
+          title: Text(
+            'Finance',
+            style: TextStyle(fontSize: 16, color: Colors.blueGrey),
+          ),
+          leading: Icon(Icons.list),
+          onTap: () {
+            Navigator.pop(context);
+            if(name != "/finance")
+              Navigator.pushNamed(context, '/finance');
+          },
+        ),
+        ListTile(
           title: Text(
             'Privacy and Policy',
             style: TextStyle(fontSize: 16, color: Colors.blueGrey),
@@ -87,6 +100,20 @@ Widget drawer(BuildContext context, Function logout) {
             Navigator.pop(context);
             if(name != "/privacy-policy")
               Navigator.pushNamed(context, '/privacy-policy');
+          },
+        ),
+        Divider(),
+        ListTile(
+          selected: name == '/profile' ? true: false,
+          title: Text(
+            'Profile',
+            style: TextStyle(fontSize: 16, color: Colors.blueGrey),
+          ),
+          leading: Icon(Icons.info),
+          onTap: () {
+            Navigator.pop(context);
+            if(name != "/profile")
+              Navigator.pushNamed(context, '/profile');
           },
         ),
 

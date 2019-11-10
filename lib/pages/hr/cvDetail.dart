@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 import '../../scoped_models/main.dart';
 import '../../models/cv.dart';
+import './cvpdf.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
+
 
 class CVDetail extends StatefulWidget {
   final MainModel model;
@@ -27,9 +30,12 @@ class CVDetailState extends State<CVDetail> {
     color: Color(0xff333333),
   );
 
+
+
   @override
   Widget build(BuildContext context) {
     CV cv = widget.model.selectedCV;
+
 
     return SafeArea(
       child: Scaffold(
@@ -196,8 +202,14 @@ class CVDetailState extends State<CVDetail> {
                       padding:
                           EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                       child: RaisedButton(
-                        onPressed: () {},
-
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CVPDF(cv.cv_link),
+                            ),
+                          );
+                        },
                         child: Text(
                           'View CV',
                           style: TextStyle(color: Colors.white),
@@ -205,10 +217,34 @@ class CVDetailState extends State<CVDetail> {
                         color: Colors.blue,
                       ),
                     ),
+                    Padding(
+                      padding:
+                      EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      child: RaisedButton(
+                        onPressed: () {
+                          sendMail();
+                        },
+                        child: Text(
+                          'Select',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        color: Colors.lightGreen,
+                      ),
+                    ),
                   ],
                 ),
               ),
       ),
     );
+  }
+
+  void sendMail() async {
+    final Email email = Email(
+      body: 'you are selected',
+      subject: 'Congratulations, ,you are selected',
+      recipients: [widget.model.selectedCV.email],
+      isHTML: false,
+    );
+    await FlutterEmailSender.send(email);
   }
 }

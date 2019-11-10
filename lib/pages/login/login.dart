@@ -16,7 +16,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
-
+  double size = 50;
 
   Future _launchURL(String url) async {
     await launch(url, forceSafariVC: true, forceWebView: true);
@@ -85,9 +85,6 @@ class _LoginPageState extends State<LoginPage> {
           return 'It has to be a valid email id';
       },
       decoration: InputDecoration(
-        //focusedBorder:
-        //UnderlineInputBorder(borderSide: BorderSide(color: Colors.white),
-
         icon: Padding(
           padding: EdgeInsets.all(7.0),
           child: Icon(
@@ -97,13 +94,8 @@ class _LoginPageState extends State<LoginPage> {
         ),
         contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         hintText: "Email",
-//        border:
-//        UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
       ),
-//        border:
-//        UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
     );
-
     final passwordField = TextFormField(
       obscureText: true,
       initialValue: 'sss',
@@ -159,12 +151,11 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     return new Scaffold(
-
       body: ScopedModelDescendant<MainModel>(
         builder: (BuildContext context, Widget child, MainModel model) {
           return model.isLoading
               ? Center(
-                  child: Text(''),
+                  child: Text('Flash Screen'),
                 )
               : Padding(
                   padding: EdgeInsets.only(
@@ -173,61 +164,145 @@ class _LoginPageState extends State<LoginPage> {
                     key: _formkey,
                     child: ListView(
                       children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.only(top: 30.0),
-                          child: Image.asset(
-                            'assets/images/logo.png',
-                            height: 130.0,
-                            fit: BoxFit.fitHeight,
-                          ),
-                        ),
-                        new Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 8.0, bottom: 80.0),
-                              child: new Text(
-                                "BlueTech",
-                                style: new TextStyle(fontSize: 30.0),
-                              ),
-                            )
-                          ],
-                        ),
-                        new SizedBox(
+                        logo(),
+                        Title(),
+                        SizedBox(
                           height: 15.0,
                         ),
                         emailField,
-                        new SizedBox(
+                        SizedBox(
                           height: 15.0,
                         ),
                         passwordField,
                         loginButton,
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            GestureDetector(
-                              onTap: () {
-                                _launchURL('https://www.google.com/');
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    bottom: 18.0, top: 18.0),
-                                child: new Text("Register ",
-                                    style: new TextStyle(
-                                        fontSize: 17.0,
-                                        color: Color(0xFF18D191),
-                                        fontWeight: FontWeight.bold)),
-                              ),
-                            ),
-                          ],
-                        ),
+                        Register(),
                       ],
                     ),
                   ),
                 );
         },
       ),
+    );
+  }
+
+  Widget Register(){
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        GestureDetector(
+          onTap: () {
+            _launchURL('https://www.google.com/');
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(
+                bottom: 18.0, top: 18.0),
+            child: new Text("Register ",
+                style: new TextStyle(
+                    fontSize: 17.0,
+                    color: Color(0xFF18D191),
+                    fontWeight: FontWeight.bold)),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget Title() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0, bottom: 80.0),
+          child: Text(
+            "GreenTech",
+            style: TextStyle(
+                fontSize: 30.0,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.bold),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget logo() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.only(top: 30.0),
+          child: Stack(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        height: size,
+                        width: size,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF14cba8),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(size),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: size,
+                        width: size,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF1de9b6),
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(size * 0.1),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        height: size,
+                        width: size,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF75ccb9),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(size),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: size,
+                        width: size,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF69f0ae),
+                          borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(size),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+              Positioned(
+                top: size * 0.6,
+                left: size * 0.6,
+                child: Container(
+                  height: size * 0.8,
+                  width: size * 0.8,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(size * 0.4),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import '../../scoped_models/main.dart';
 import './Events/eventList.dart';
-
+import '../../models/event.dart';
 
 const Color font_color = Color(0xFF333333);
+
 class Events extends StatelessWidget {
   final MainModel model;
-  final List<Map<String, dynamic>> info;
+  final List<Event> info;
 
   //only 5 events at max
   Events(this.info, this.model);
@@ -23,27 +24,18 @@ class Events extends StatelessWidget {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                // Where the linear gradient begins and ends
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                // Add one stop for each color. Stops should increase from 0 to 1
-                stops: [0.1, 0.5, 0.7, 0.9],
-                colors: [
-                  // Colors are easy thanks to Flutter's Colors class.
-                  Colors.green[800],
-                  Colors.green[700],
-                  Colors.green[600],
-                  Colors.green[400],
-                ],
-              ),
+              color: Color(0xFF2bbc7d),
+
               borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(5), topLeft: Radius.circular(5),),
+                topRight: Radius.circular(5),
+                topLeft: Radius.circular(5),
+              ),
               boxShadow: [
                 BoxShadow(
-                    offset: Offset(1, 1),
-                    blurRadius: 10,
-                    color: Colors.black26),
+                  offset: Offset(1, 1),
+                  blurRadius: 10,
+                  color: Colors.grey,
+                ),
               ],
             ),
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
@@ -54,7 +46,7 @@ class Events extends StatelessWidget {
                   'Upcoming Events',
                   style: TextStyle(
                     fontSize: 16,
-                    color: font_color,
+                    color: Colors.white,
                   ),
                 ),
                 IconButton(
@@ -76,7 +68,6 @@ class Events extends StatelessWidget {
               borderRadius: info.length > limit
                   ? BorderRadius.vertical(bottom: Radius.circular(0))
                   : BorderRadius.vertical(bottom: Radius.circular(5)),
-
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
@@ -88,7 +79,7 @@ class Events extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: Column(
-                children: getWidgets(info, limit, width),
+                children: getWidgets(model, info, limit, width, context),
               ),
             ),
           ),
@@ -96,15 +87,8 @@ class Events extends StatelessWidget {
               ? GestureDetector(
                   onTap: () {
                     print('go to the full events list');
-//                    Navigator.push(
-//                context,
-//                PageRouteBuilder(
-//                  transitionDuration: Duration(milliseconds: 5000),
-//                  pageBuilder: (_, __, ___) =>
-//                      EventPage(model),
-//                ),
-//              );
-                  Navigator.pushNamed(context, '/event-list');
+
+                    Navigator.pushNamed(context, '/event-list');
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -122,9 +106,12 @@ class Events extends StatelessWidget {
                     ),
                     width: double.infinity,
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    child: Text(
-                      'Load more',
-                      style: TextStyle(color: Colors.black, fontSize: 15),
+                    child: Align(
+                      alignment: Alignment(1, 0),
+                      child: Text(
+                        'Load more',
+                        style: TextStyle(color: Colors.white, fontSize: 15),
+                      ),
                     ),
                   ),
                 )
@@ -137,10 +124,8 @@ class Events extends StatelessWidget {
   }
 }
 
-//  {'day': 21, 'month': 12, 'year': 2019, 'name': 'PyCon', 'address': 'Somewhere in Chennai', 'nav': 'some link'},
-
-List<Widget> getWidgets(
-    List<Map<String, dynamic>> info, int limit, double width) {
+List<Widget> getWidgets(MainModel model, List<Event> info, int limit,
+    double width, BuildContext context) {
   List<Widget> list = [];
   limit = limit < info.length ? limit : info.length;
   for (int i = 0; i < limit; i++) {
@@ -151,67 +136,78 @@ List<Widget> getWidgets(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.all(3),
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.blueGrey.shade100,
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(2),
+          GestureDetector(
+            onTap: () {
+              model.setEvent(info[i]);
+              Navigator.pushNamed(context, '/event-detail');
+            },
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.all(3),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.blueGrey.shade100,
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(2),
+                          ),
+                        ),
+                        width: 40,
+                        height: 20,
+                        child: Center(
+                          child: Text(
+                            info[i].day.toString(),
+                            style: TextStyle(fontSize: 10),
+                          ),
                         ),
                       ),
-                      width: 40,
-                      height: 20,
-                      child: Center(
-                        child: Text(
-                          info[i]['day'].toString(),
-                          style: TextStyle(fontSize: 10),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.greenAccent,
+                          borderRadius: BorderRadius.vertical(
+                            bottom: Radius.circular(2),
+                          ),
                         ),
+                        width: 40,
+                        height: 20,
+                        child: Center(
+                          child: Text(
+                            info[i].month.toString(),
+                            style: TextStyle(fontSize: 9, color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      width: width - 84,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+                      child: Text(
+                        info[i].title,
+                        style: TextStyle(color: font_color),
                       ),
                     ),
                     Container(
-                      decoration: BoxDecoration(
-                        color: Colors.greenAccent,
-                        borderRadius: BorderRadius.vertical(
-                          bottom: Radius.circular(2),
-                        ),
-                      ),
-                      width: 40,
-                      height: 20,
-                      child: Center(
-                        child: Text(
-                          info[i]['month'].toString(),
-                          style: TextStyle(fontSize: 9, color: Colors.white),
-                        ),
+                      width: width - 84,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+                      child: Text(
+                        info[i].address,
+                        style: TextStyle(color: Colors.grey),
                       ),
                     ),
                   ],
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    width: width - 84,
-                    padding: EdgeInsets.symmetric(vertical: 3, horizontal: 10),
-                    child: Text(info[i]['name'], style: TextStyle(color: font_color),),
-                  ),
-                  Container(
-                    width: width - 84,
-                    padding: EdgeInsets.symmetric(vertical: 3, horizontal: 10),
-                    child: Text(
-                      info[i]['address'],
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                ],
-              )
-            ],
+                )
+              ],
+            ),
           ),
           Divider(
             color: Colors.grey,
@@ -224,9 +220,3 @@ List<Widget> getWidgets(
 
   return list;
 }
-
-//Border(
-//bottom: BorderSide(width: 5.0, color: Colors.black),
-//right: BorderSide(width: 5.0, color: Colors.black),
-//left: BorderSide(width: 5.0, color: Colors.black),
-//),
