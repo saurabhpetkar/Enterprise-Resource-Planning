@@ -56,7 +56,7 @@ class CVPDFState extends State<CVPDF> {
                             child: CircularProgressIndicator(),
                           )
                         : PDFViewer(
-                            indicatorBackground: Colors.green,
+                            indicatorBackground: Colors.blue,
                             indicatorText: Colors.white,
                             document: document,
                           ),

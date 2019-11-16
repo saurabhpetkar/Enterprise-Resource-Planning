@@ -19,7 +19,7 @@ class ProfilePageState extends State<ProfilePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFF26c6da),
+          backgroundColor: Colors.lightBlueAccent,
           title: Text('Profile'),
         ),
         body: widget.model.isLoading
@@ -34,7 +34,7 @@ class ProfilePageState extends State<ProfilePage> {
             child: ButtonTheme(
               minWidth: double.infinity,
               child: RaisedButton(
-                color: Color(0xFF1de9b6),
+                color: Color(0xFF00acc1),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -43,7 +43,7 @@ class ProfilePageState extends State<ProfilePage> {
                   );
                 },
                 child: Center(
-                  child: Text('Change Password'),
+                  child: Text('Change Password', style: TextStyle(color: Colors.white),),
                 ),
               ),
             ),

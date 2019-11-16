@@ -5,7 +5,6 @@ import './style.dart';
 import '../../scoped_models/main.dart';
 import '../../global_widgets/drawer.dart';
 
-
 class AboutPage extends StatefulWidget {
   final MainModel model;
 
@@ -22,39 +21,28 @@ class _AboutPageState extends State<AboutPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('About WealthSuite'),
-        backgroundColor: Color(0xFF18D191),
+        title: Text('About BlueTech'),
+        backgroundColor: Colors.lightBlueAccent,
         elevation: 2.0,
       ),
       drawer: drawer(context, widget.model.logout),
-      body: ListView(
+      body: Column(
         children: <Widget>[
-          Stack(
-            children: [
-              Positioned(
-                child: CircularProgressIndicator(),
-                top: 100,
-              ),
-              Center(
-                child: FadeInImage.memoryNetwork(
-                  placeholder: kTransparentImage,
-                  image:
-                      'https://shawglobalnews.files.wordpress.com/2019/02/dragon-aurora.jpg',
-                ),
-              ),
-            ],
-          ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
             child: Text(
-              "About WealthSuite",
-              style: heading_style,
+              "About BlueTech",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w700,
+                color: Colors.blue,
+              ),
             ),
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-              'some random content ' * 10,
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
               style: content_style,
             ),
           ),

@@ -26,7 +26,7 @@ class PurchaseDetail extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.lightBlueAccent,
           title: Text(
             'Purchase',
           ),
@@ -61,7 +61,7 @@ class PurchaseDetail extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           vertical: 5, horizontal: 10),
                       child: Text(
-                        purchase.product,
+                        purchase.itemname,
                         style: content,
                       ),
                     ),
@@ -80,7 +80,7 @@ class PurchaseDetail extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           vertical: 5, horizontal: 10),
                       child: Text(
-                        'Seller',
+                        'Discount',
                         style: attr,
                       ),
                     ),
@@ -91,7 +91,7 @@ class PurchaseDetail extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           vertical: 5, horizontal: 10),
                       child: Text(
-                        purchase.seller,
+                        purchase.discount.toString(),
                         style: content,
                       ),
                     ),
@@ -109,7 +109,7 @@ class PurchaseDetail extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           vertical: 5, horizontal: 10),
                       child: Text(
-                        'Buyer',
+                        'Discount',
                         style: attr,
                       ),
                     ),
@@ -120,7 +120,7 @@ class PurchaseDetail extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           vertical: 5, horizontal: 10),
                       child: Text(
-                        purchase.buyer,
+                        purchase.discount.toString(),
                         style: content,
                       ),
                     ),
@@ -137,7 +137,7 @@ class PurchaseDetail extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           vertical: 5, horizontal: 10),
                       child: Text(
-                        'quantity',
+                        'Quantity',
                         style: attr,
                       ),
                     ),
@@ -165,7 +165,7 @@ class PurchaseDetail extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           vertical: 5, horizontal: 10),
                       child: Text(
-                        'Date',
+                        'Description',
                         style: attr,
                       ),
                     ),
@@ -176,11 +176,7 @@ class PurchaseDetail extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           vertical: 5, horizontal: 10),
                       child: Text(
-                        purchase.day +
-                            ' ' +
-                            purchase.month +
-                            ', ' +
-                            purchase.year,
+                        purchase.description,
                         style: content,
                       ),
                     ),

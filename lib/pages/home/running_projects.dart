@@ -20,7 +20,7 @@ class RunningProjects extends StatelessWidget {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              color: Color(0xFF2bbc7d),
+              color: Colors.lightBlue,
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(5), topLeft: Radius.circular(5),),
               boxShadow: [

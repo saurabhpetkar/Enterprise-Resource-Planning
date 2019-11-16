@@ -24,7 +24,7 @@ class EventPageState extends State<EventPage> {
     return Scaffold(
       drawer: drawer(context, widget.model.logout),
       appBar: AppBar(
-        backgroundColor: Colors.green[700],
+        backgroundColor: Colors.lightBlueAccent,
         title: Hero(
           tag: 'events',
           child: Material(
@@ -115,7 +115,7 @@ class PagewiseListViewExample extends StatelessWidget {
                             ),
                             Container(
                               decoration: BoxDecoration(
-                                color: Colors.greenAccent,
+                                color: Color(0xFF006978).withOpacity(0.8),
                                 borderRadius: BorderRadius.vertical(
                                   bottom: Radius.circular(2),
                                 ),
@@ -204,74 +204,6 @@ class JsonListToEventList {
         .toList();
   }
 }
-//Container(
-//              width: double.infinity,
-//              decoration: BoxDecoration(
-//                boxShadow: [
-//                  BoxShadow(
-//                    color: Colors.grey,
-//                    offset: new Offset(10.0, 10.0),
-//                    blurRadius: 20,
-//                  )
-//                ],
-//                color: Colors.white,
-//                borderRadius: BorderRadius.only(
-//                  bottomRight: Radius.circular(rad),
-//                  bottomLeft: Radius.circular(rad),
-//                  topLeft: Radius.circular(rad),
-//                  topRight: Radius.circular(rad),
-//                ),
-//              ),
-//              child: Column(
-//                crossAxisAlignment: CrossAxisAlignment.start,
-//                children: <Widget>[
-//                  Container(
-//                    height: 250,
-//                    child: Stack(
-//                      children: [
-//                        Align(
-//                          child: Center(
-//                            child: CircularProgressIndicator(
-//                              backgroundColor: Colors.black54,
-//                            ),
-//                          ),
-//                          alignment: Alignment(0.0, 0.0),
-//                        ),
-//                        Container(
-//                          height: 250,
-//                          child: ClipRRect(
-//                            borderRadius: BorderRadius.only(
-//                                topLeft: Radius.circular(rad),
-//                                topRight: Radius.circular(rad)),
-//                            child: Hero(
-//                              tag: entry.title + 'image',
-//                              child: FadeInImage.memoryNetwork(
-//                                fit: BoxFit.fill,
-//                                placeholder: kTransparentImage,
-//                                image: entry.picture,
-//                              ),
-//                            ),
-//                          ),
-//                        ),
-//                      ],
-//                    ),
-//                  ),
-//                  Padding(
-//                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 10),
-//                    child: Hero(
-//                      tag: entry.title + 'title',
-//                      child: Text(
-//                        entry.title,
-//                        style: TextStyle(
-//                          fontWeight: FontWeight.w700,
-//                          fontSize: 18,
-//                        ),
-//                      ),
-//                    ),
-//                  ),
-//                ],
-//              ),
-//            ),
 
 List<Event> data1 = [
   Event(
@@ -463,7 +395,7 @@ List<Event> data1 = [
     day: '15',
     month: 'DEC',
     year: 2019.toString(),
-    title: 'Shashwat poll dance',
+    title: 'Shashwat concert',
     address: 'Somewhere in bareli',
     picture:
         'https://cdn.pixabay.com/photo/2019/10/01/13/06/landscape-4518196_960_720.jpg',

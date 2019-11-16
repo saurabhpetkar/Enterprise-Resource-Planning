@@ -54,7 +54,7 @@ class HomePageState extends State<HomePage>
       key: _scaffoldKey,
       drawer: drawer(context, widget.model.logout),
       appBar: AppBar(
-        backgroundColor: Colors.greenAccent,
+        backgroundColor: Colors.lightBlueAccent,
         title: Text('Home'),
       ),
       body: SafeArea(

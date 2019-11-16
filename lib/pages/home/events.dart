@@ -24,7 +24,7 @@ class Events extends StatelessWidget {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              color: Color(0xFF2bbc7d),
+              color: Colors.lightBlue,
 
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(5),
@@ -166,7 +166,7 @@ List<Widget> getWidgets(MainModel model, List<Event> info, int limit,
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.greenAccent,
+                          color: Color(0xFF006978).withOpacity(0.8),
                           borderRadius: BorderRadius.vertical(
                             bottom: Radius.circular(2),
                           ),

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import '../../../scoped_models/main.dart';
 
-class AccountAdministrationPage extends StatefulWidget {
+class FinanceTrackPage extends StatefulWidget {
   final MainModel model;
 
-  AccountAdministrationPage(this.model);
+  FinanceTrackPage(this.model);
 
   @override
   State<StatefulWidget> createState() {
-    return AccAdminPageState();
+    return FinanceTrackPageState();
   }
 }
 
-class AccAdminPageState extends State<AccountAdministrationPage> {
+class FinanceTrackPageState extends State<FinanceTrackPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,7 +35,6 @@ class AccAdminPageState extends State<AccountAdministrationPage> {
                     Button('Operative and reporting chart of accounts', ''),
                     Button('Configuration for auto accounting voucher generation', ''),
                     Button('Financial Periods', ''),
-
                   ],
                 ),
         ),

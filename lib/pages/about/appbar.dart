@@ -8,7 +8,7 @@ class appbar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text('About'),
-      backgroundColor: Color(0xFF18D191),
+      backgroundColor: Colors.lightBlueAccent,
       elevation: 2.0,
     );
   }

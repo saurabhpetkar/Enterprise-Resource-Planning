@@ -4,6 +4,7 @@ import '../../scoped_models/main.dart';
 import '../../global_widgets/drawer.dart';
 import 'package:http/http.dart' as http;
 import '../../models/cv.dart';
+import 'dart:convert';
 
 class CVPage extends StatefulWidget {
   final MainModel model;
@@ -29,7 +30,7 @@ class CVPageState extends State<CVPage> {
     return Scaffold(
       drawer: drawer(context, widget.model.logout),
       appBar: AppBar(
-        backgroundColor: Colors.green[700],
+        backgroundColor: Colors.lightBlueAccent,
         title: Hero(
           tag: 'CVs',
           child: Material(
@@ -94,7 +95,8 @@ class PagewiseListViewExample extends StatelessWidget {
             onTap: () {
               SetPurchase(entry);
               model.insertIndex(index);
-              Navigator.pushNamed(context, '/cv-detail').then(SetState());
+              Navigator.pushNamed(context, '/cv-detail');
+              SetState();
             },
             child: Container(
               padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
@@ -202,23 +204,13 @@ class BackendService {
             'http://jsonplaceholder.typicode.com/posts?_start=$offset&_limit=$limit'))
         .body;
 
+    final d = json.decode(responseBody);
+
     return data;
   }
 }
 
-class JsonListToCVList {
-  String title;
-  String body;
 
-  JsonListToCVList.fromJson(obj) {
-    this.title = obj['title'];
-    this.body = obj['body'];
-  }
-
-  static List<CV> fromJsonList(jsonList) {
-    return jsonList.map<CV>((obj) => JsonListToCVList.fromJson(obj)).toList();
-  }
-}
 
 List<CV> data = [
   CV(
@@ -323,44 +315,3 @@ List<CV> data = [
       min: 38),
 ];
 
-//
-//class CV {
-//  final String name;
-//  final String email;
-//  final String cv_link;
-//  final String state;
-//  final int day;
-//  final String month;
-//  final int year;
-//  final int hour;
-//  final int min;
-//
-//
-//  CV({
-//    @required this.name,
-//    @required this.email,
-//    @required this.cv_link,
-//    @required this.state,
-//    @required this.day,
-//    @required this.month,
-//    @required this.year,
-//    @required this.hour,
-//    @required this.min,
-//
-//
-//  });
-//}
-//
-//List<CV> data = [
-//  CV(name: 'blah1', email: 'xyz@gmail.com', cv_link: 'http://www.africau.edu/images/default/sample.pdf', state: 'blah1', day: 1, month: 'Jan', year: 2019, hour: 18, min: 38),
-//  CV(name: 'blah2', email: 'xyz@gmail.com', cv_link: 'http://www.africau.edu/images/default/sample.pdf', state: 'blah2', day: 2, month: 'Jan', year: 2019, hour: 18, min: 38),
-//  CV(name: 'blah3', email: 'xyz@gmail.com', cv_link: 'http://www.africau.edu/images/default/sample.pdf', state: 'blah3', day: 3, month: 'Jan', year: 2019, hour: 18, min: 38),
-//  CV(name: 'blah4', email: 'xyz@gmail.com', cv_link: 'http://www.africau.edu/images/default/sample.pdf', state: 'blah4', day: 4, month: 'Jan', year: 2019, hour: 18, min: 38),
-//  CV(name: 'blah5', email: 'xyz@gmail.com', cv_link: 'http://www.africau.edu/images/default/sample.pdf', state: 'blah5', day: 5, month: 'Jan', year: 2019, hour: 18, min: 38),
-//  CV(name: 'blah6', email: 'xyz@gmail.com', cv_link: 'http://www.africau.edu/images/default/sample.pdf', state: 'blah6', day: 6, month: 'Jan', year: 2019, hour: 18, min: 38),
-//  CV(name: 'blah7', email: 'xyz@gmail.com', cv_link: 'http://www.africau.edu/images/default/sample.pdf', state: 'blah7', day: 7, month: 'Jan', year: 2019, hour: 18, min: 38),
-//  CV(name: 'blah8', email: 'xyz@gmail.com', cv_link: 'http://www.africau.edu/images/default/sample.pdf', state: 'blah8', day: 8, month: 'Jan', year: 2019, hour: 18, min: 38),
-//  CV(name: 'blah9', email: 'xyz@gmail.com', cv_link: 'https://pdftron.s3.amazonaws.com/downloads/pdfref.pdf', state: 'blah9', day: 9, month: 'Jan', year: 2019, hour: 18, min: 38),
-//  CV(name: 'blah10', email: 'xyz@gmail.com', cv_link: 'https://pdftron.s3.amazonaws.com/downloads/pdfref.pdf', state: 'blah10', day: 10, month: 'Jan', year: 2019, hour: 18, min: 38),
-//
-//];

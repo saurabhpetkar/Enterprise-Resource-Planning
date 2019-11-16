@@ -6,88 +6,146 @@ Widget drawer(BuildContext context, Function logout) {
   return Drawer(
     child: ListView(
       children: <Widget>[
-        UserAccountsDrawerHeader(
-          accountName: Text(
-            'logged in username',
-            style: TextStyle(color: Colors.white),
-          ),
-          accountEmail:
-          Text('logged in email', style: TextStyle(color: Colors.white)),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: NetworkImage(
-                  "https://cdn.pixabay.com/photo/2016/08/17/21/12/people-1601516_960_720.jpg"),
+        Padding(
+          padding: const EdgeInsets.only(top: 15.0, bottom: 5, left: 10),
+          child: Text(
+              'logged in username',
+              style: TextStyle(color: Colors.black, fontSize: 17),
             ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 5.0, bottom: 10, left: 10),
+          child: Text(
+            'logged in email',
+            style: TextStyle(color: Colors.black54, fontSize: 16),
           ),
         ),
+        Divider(),
+
         ListTile(
-          selected: name == '/' ? true: false,
+          selected: name == '/' ? true : false,
           title: Text(
             'Home',
             style: TextStyle(fontSize: 16, color: Colors.blueGrey),
           ),
-          leading: Icon(Icons.list),
+          leading: Icon(Icons.home),
           onTap: () {
             Navigator.pop(context);
-            if(name != "/")
-              Navigator.pushNamed(context, '/');
+            if (name != "/") Navigator.pushNamed(context, '/');
           },
         ),
         ListTile(
-          selected: name == '/about' ? true: false,
-
+          selected: name == '/about' ? true : false,
           title: Text(
             'About',
             style: TextStyle(fontSize: 16, color: Colors.blueGrey),
           ),
-          leading: Icon(Icons.list),
+          leading: Icon(Icons.account_balance),
           onTap: () {
             Navigator.pop(context);
-            if(name != "/about")
-              Navigator.pushNamed(context, '/about');
+            if (name != "/about") Navigator.pushNamed(context, '/about');
           },
         ),
         ListTile(
-          selected: name == '/sales' ? true: false,
+          selected: name == '/sales' ? true : false,
           title: Text(
             'Sales',
             style: TextStyle(fontSize: 16, color: Colors.blueGrey),
           ),
-          leading: Icon(Icons.list),
+          leading: Icon(Icons.supervisor_account),
           onTap: () {
             Navigator.pop(context);
-            if(name != "/sales")
-              Navigator.pushNamed(context, '/sales');
+            if (name != "/sales") Navigator.pushNamed(context, '/sales');
           },
         ),
 
+        ListTile(
+          selected: name == '/add-product' ? true : false,
+          title: Text(
+            'Add Product',
+            style: TextStyle(fontSize: 16, color: Colors.blueGrey),
+          ),
+          leading: Icon(Icons.add_shopping_cart),
+          onTap: () {
+            Navigator.pop(context);
+            if (name != "/add-product")
+              Navigator.pushNamed(context, '/add-product');
+          },
+        ),
+        ListTile(
+          selected: name == '/add-meeting' ? true : false,
+          title: Text(
+            'Add Meeting',
+            style: TextStyle(fontSize: 16, color: Colors.blueGrey),
+          ),
+          leading: Icon(Icons.group_add),
+          onTap: () {
+            Navigator.pop(context);
+            if (name != "/add-meeting")
+              Navigator.pushNamed(context, '/add-meeting');
+          },
+        ),
+        ListTile(
+          selected: name == '/meeting-list' ? true : false,
+          title: Text(
+            'Meeting List',
+            style: TextStyle(fontSize: 16, color: Colors.blueGrey),
+          ),
+          leading: Icon(Icons.view_list),
+          onTap: () {
+            Navigator.pop(context);
+            if (name != '/meeting-list')
+              Navigator.pushNamed(context, '/meeting-list');
+          },
+        ),
+        ListTile(
+          selected: name == '/company-list' ? true : false,
+          title: Text(
+            'Customer Companies',
+            style: TextStyle(fontSize: 16, color: Colors.blueGrey),
+          ),
+          leading: Icon(Icons.view_list),
+          onTap: () {
+            Navigator.pop(context);
+            if (name != '/company-list')
+              Navigator.pushNamed(context, '/company-list');
+          },
+        ),
         //down: iff the person is HR
         ListTile(
-          selected: name == '/hr' ? true: false,
+          selected: name == '/hr' ? true : false,
           title: Text(
             'HR',
             style: TextStyle(fontSize: 16, color: Colors.blueGrey),
           ),
-          leading: Icon(Icons.list),
+          leading: Icon(Icons.thumbs_up_down),
           onTap: () {
             Navigator.pop(context);
-            if(name != "/hr")
-              Navigator.pushNamed(context, '/hr');
+            if (name != "/hr") Navigator.pushNamed(context, '/hr');
           },
         ),
         ListTile(
-          selected: name == '/finance' ? true: false,
+          selected: name == '/finance' ? true : false,
           title: Text(
             'Finance',
             style: TextStyle(fontSize: 16, color: Colors.blueGrey),
           ),
-          leading: Icon(Icons.list),
+          leading: Icon(Icons.attach_money),
           onTap: () {
             Navigator.pop(context);
-            if(name != "/finance")
-              Navigator.pushNamed(context, '/finance');
+            if (name != "/finance") Navigator.pushNamed(context, '/finance');
+          },
+        ),
+        ListTile(
+          selected: name == '/training' ? true : false,
+          title: Text(
+            'Training',
+            style: TextStyle(fontSize: 16, color: Colors.blueGrey),
+          ),
+          leading: Icon(Icons.work),
+          onTap: () {
+            Navigator.pop(context);
+            if (name != "/training") Navigator.pushNamed(context, '/training');
           },
         ),
         ListTile(
@@ -95,25 +153,24 @@ Widget drawer(BuildContext context, Function logout) {
             'Privacy and Policy',
             style: TextStyle(fontSize: 16, color: Colors.blueGrey),
           ),
-          leading: Icon(Icons.list),
+          leading: Icon(Icons.fingerprint),
           onTap: () {
             Navigator.pop(context);
-            if(name != "/privacy-policy")
+            if (name != "/privacy-policy")
               Navigator.pushNamed(context, '/privacy-policy');
           },
         ),
         Divider(),
         ListTile(
-          selected: name == '/profile' ? true: false,
+          selected: name == '/profile' ? true : false,
           title: Text(
             'Profile',
             style: TextStyle(fontSize: 16, color: Colors.blueGrey),
           ),
-          leading: Icon(Icons.info),
+          leading: Icon(Icons.person),
           onTap: () {
             Navigator.pop(context);
-            if(name != "/profile")
-              Navigator.pushNamed(context, '/profile');
+            if (name != "/profile") Navigator.pushNamed(context, '/profile');
           },
         ),
 

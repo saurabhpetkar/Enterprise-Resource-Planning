@@ -43,7 +43,7 @@ class card extends StatelessWidget {
                             children: <Widget>[
                               Center(
                                 child: Icon(
-                                  Icons.palette,
+                                  Icons.attach_money,
                                   size: 80,
                                 ),
                               ),
@@ -136,7 +136,7 @@ class card extends StatelessWidget {
                             children: <Widget>[
                               Center(
                                 child: Icon(
-                                  Icons.palette,
+                                  Icons.supervisor_account,
                                   size: 80,
                                 ),
                               ),
@@ -233,8 +233,8 @@ class card extends StatelessWidget {
                             children: <Widget>[
                               Center(
                                 child: Icon(
-                                  Icons.palette,
-                                  size: 80,
+                                  Icons.thumbs_up_down,
+                                  size: 70,
                                 ),
                               ),
                               Positioned(
@@ -302,7 +302,7 @@ class card extends StatelessWidget {
                 height: 150,
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/profile');
+                    Navigator.pushNamed(context, '/product-list');
                   },
                   child: Container(
                     padding: EdgeInsets.all(3),
@@ -376,7 +376,7 @@ class card extends StatelessWidget {
                             padding: const EdgeInsets.only(
                                 bottom: 4.0, left: 5, right: 2),
                             child: Center(
-                              child: Text('Profile'),
+                              child: Text('Products'),
                             ),
                           ),
                           flex: 1,

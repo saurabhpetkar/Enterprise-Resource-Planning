@@ -1,29 +1,19 @@
 import 'package:flutter/material.dart';
 
 class Purchase {
-  final String product;
+  final String itemname;
+  final String description;
   final int quantity;
-  final String buyer;
-  final String id;
-  final String seller;
-  final String day;
-  final String month;
-  final String year;
-
-
-
-
+  final double price;
+  final double discount;
 
 
   Purchase({
-    @required this.product,
+    @required this.itemname,
+    @required this.description,
     @required this.quantity,
-    @required this.buyer,
-    @required this.id,
-    @required this.seller,
-    @required this.day,
-    @required this.month,
-    @required this.year,
+    @required this.price,
+    @required this.discount,
 
   });
 }

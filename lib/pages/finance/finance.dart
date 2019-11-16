@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../scoped_models/main.dart';
-import 'account_admin/account_admin.dart';
-import 'cash_bank_accounting/cash_bank_accounting.dart';
-import 'costing_cost_planning/costing_cost_planning.dart';
-import 'expense_management/expense_management.dart';
-import 'acc_pay_acc_rec/acc_pay_acc_rec.dart';
-import 'statutory_compliance/statutory_compliance.dart';
-import 'financial_analysis/financial_analysis.dart';
-import 'fixed_asset_manage/fixed_asset_manage.dart';
+import 'financial_tracking/financial_tracking.dart';
+import 'financial_management/financial_management.dart';
+import 'financial_statement/financial_statement.dart';
+import 'financial_growth_proj/financial_growth_proj.dart';
 
 class FinancePage extends StatefulWidget {
   final MainModel model;
@@ -26,109 +22,195 @@ class FinancePageState extends State<FinancePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-
           title: Text('Finance'),
-          backgroundColor: Color(0xFF6200EE),
+          backgroundColor: Colors.lightBlueAccent,
         ),
         body: Scrollbar(
-          child: widget.model.isLoading
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : ListView(
-                  children: <Widget>[
-                    Button("Account Administration"),
-                    Button("Cash & Bank Accounting"),
-                    Button('Costing and Cost Planning'),
-                    Button('Expense Management'),
-                    Button('Account Payable and Account Receivable'),
-                    Button('Statutory Compliances'),
-                    Button('Financial Analysis'),
-                    Button("Fixed Asset Management"),
-                  ],
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: Container(
+                  width: double.infinity,
+                  padding:
+                      EdgeInsets.only(top: 10, left: 10, bottom: 5, right: 5),
+                  child: RaisedButton(
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FinanceTrackPage(widget.model)),
+                      );
+                    },
+                    elevation: 10,
+                    color: Colors.orangeAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      'Financial Tracking',
+                      style: TextStyle(fontWeight: FontWeight.w700),
+                    ),
+                  ),
                 ),
-        ),
-      ),
-    );
-  }
-
-  Widget Button(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0, right: 8, left: 8),
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
-        onPressed: () {
-          if (title == "Account Administration")
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      AccountAdministrationPage(widget.model)),
-            );
-          else if (title == "Cash & Bank Accounting")
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => CashBankAccPage(widget.model)),
-            );
-          else if (title == "Costing and Cost Planning")
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => CostingCostPlanPage(widget.model)),
-            );
-          else if (title == "Expense Management")
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ExpenseManagePage(widget.model)),
-            );
-          else if (title == "Account Payable and Account Receivable")
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => AccPayAccRecPage(widget.model)),
-            );
-          else if (title == "Fixed Asset Management")
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => FixedAssetManagePage(widget.model)),
-            );
-          else if (title == "Statutory Compliances")
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      StatutoryCompliancePage(widget.model)),
-            );
-          else
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => FinancialAnalysisPage(widget.model)),
-            );
-        },
-        padding: const EdgeInsets.all(0.0),
-        child: Container(
-          
-          width: double.infinity,
-          decoration: new BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(5)),
-              gradient: new LinearGradient(
-                colors: [
-                  Color(0xFF03DAC6),
-                  Color(0xFF018786),
-
-                ],
-              )),
-          padding: const EdgeInsets.all(13.0),
-          child: Text(
-            title,
-            style: TextStyle(color: Colors.white),
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  width: double.infinity,
+                  padding:
+                  EdgeInsets.only(top: 10, left: 10, bottom: 5, right: 5),
+                  child: RaisedButton(
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FinanceManagePage(widget.model)),
+                      );
+                    },
+                    elevation: 10,
+                    color: Colors.orangeAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      'Financial Management',
+                      style: TextStyle(fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  width: double.infinity,
+                  padding:
+                  EdgeInsets.only(top: 10, left: 10, bottom: 5, right: 5),
+                  child: RaisedButton(
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FinanceStatementPage(widget.model)),
+                      );
+                    },
+                    elevation: 10,
+                    color: Colors.orangeAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      'Financial Statement',
+                      style: TextStyle(fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  width: double.infinity,
+                  padding:
+                  EdgeInsets.only(top: 10, left: 10, bottom: 5, right: 5),
+                  child: RaisedButton(
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FinanceGPPage(widget.model)),
+                      );
+                    },
+                    elevation: 10,
+                    color: Colors.orangeAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      'Financial Growth Projection',
+                      style: TextStyle(fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
+
+//  ListView(
+//  children: <Widget>[
+//  Button("Financial Tracking"),
+//  Button("Financial Management"),
+//  Button('Financial Statement'),
+//  Button('Financial Growth Projection'),
+//
+//  ],
+//  )
+
+//  Widget Button(String title) {
+//    return Padding(
+//      padding: const EdgeInsets.only(top: 8.0, right: 8, left: 8),
+//      child: RaisedButton(
+//        shape: RoundedRectangleBorder(
+//            borderRadius: BorderRadius.all(Radius.circular(5))),
+//        onPressed: () {
+//          if (title == "Financial Tracking")
+//            Navigator.push(
+//              context,
+//              MaterialPageRoute(
+//                  builder: (context) => FinanceTrackPage(widget.model)),
+//            );
+//          else if (title == "Financial Management")
+//            Navigator.push(
+//              context,
+//              MaterialPageRoute(
+//                  builder: (context) => FinanceManagePage(widget.model)),
+//            );
+//          else if (title == "Financial Statement")
+//            Navigator.push(
+//              context,
+//              MaterialPageRoute(
+//                  builder: (context) => FinanceStatementPage(widget.model)),
+//            );
+//          else if (title == "Financial Growth Projection")
+//            Navigator.push(
+//              context,
+//              MaterialPageRoute(
+//                  builder: (context) => FinanceGPPage(widget.model)),
+//            );
+//        },
+//        padding: const EdgeInsets.all(0.0),
+//        child: Container(
+//          width: double.infinity,
+//          decoration: new BoxDecoration(
+//              borderRadius: BorderRadius.all(Radius.circular(5)),
+//              gradient: new LinearGradient(
+//                colors: [
+//                  Color(0xFF03DAC6),
+//                  Color(0xFF018786),
+//                ],
+//              )),
+//          padding: const EdgeInsets.all(13.0),
+//          child: Text(
+//            title,
+//            style: TextStyle(color: Colors.white),
+//          ),
+//        ),
+//      ),
+//    );
+//  }
 }

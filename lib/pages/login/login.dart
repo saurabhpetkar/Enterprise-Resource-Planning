@@ -128,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                 alignment: Alignment.center,
                 height: 60,
                 decoration: new BoxDecoration(
-                    color: Color(0xFF18D191),
+                    color: Color(0xFF00bcd4),
                     borderRadius: new BorderRadius.circular(9.0)),
                 child: model.isLoading
                     ? Center(
@@ -199,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
             child: new Text("Register ",
                 style: new TextStyle(
                     fontSize: 17.0,
-                    color: Color(0xFF18D191),
+                    color: Color(0xFF62efff),
                     fontWeight: FontWeight.bold)),
           ),
         ),
@@ -214,7 +214,7 @@ class _LoginPageState extends State<LoginPage> {
         Padding(
           padding: const EdgeInsets.only(top: 8.0, bottom: 80.0),
           child: Text(
-            "GreenTech",
+            "BlueTech",
             style: TextStyle(
                 fontSize: 30.0,
                 fontFamily: 'Roboto',
@@ -241,7 +241,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: size,
                         width: size,
                         decoration: BoxDecoration(
-                          color: Color(0xFF14cba8),
+                          color: Colors.blue,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(size),
                           ),
@@ -251,7 +251,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: size,
                         width: size,
                         decoration: BoxDecoration(
-                          color: Color(0xFF1de9b6),
+                          color: Colors.lightBlue,
                           borderRadius: BorderRadius.only(
                             topRight: Radius.circular(size * 0.1),
                           ),
@@ -265,7 +265,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: size,
                         width: size,
                         decoration: BoxDecoration(
-                          color: Color(0xFF75ccb9),
+                          color: Colors.blueAccent,
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(size),
                           ),
@@ -275,7 +275,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: size,
                         width: size,
                         decoration: BoxDecoration(
-                          color: Color(0xFF69f0ae),
+                          color: Colors.lightBlueAccent,
                           borderRadius: BorderRadius.only(
                             bottomRight: Radius.circular(size),
                           ),

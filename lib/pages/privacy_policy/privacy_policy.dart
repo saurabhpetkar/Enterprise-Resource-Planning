@@ -41,7 +41,7 @@ class PrivacyPolicyPageState extends State<PrivacyPolicyPage>
         return Scaffold(
           appBar: AppBar(
             title: Text('Privacy and Policy'),
-            backgroundColor: Color(0xFF18D191),
+            backgroundColor: Colors.lightBlueAccent,
             elevation: 2.0,
           ),
           drawer: drawer(context, model.logout),

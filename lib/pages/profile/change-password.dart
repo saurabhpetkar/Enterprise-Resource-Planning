@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../scoped_models/main.dart';
 import 'package:string_validator/string_validator.dart';
 import 'dart:async';
+import 'package:scoped_model/scoped_model.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   final MainModel model;
@@ -258,7 +259,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFF26c6da),
+          backgroundColor: Colors.lightBlueAccent,
           title: Text('Change Password'),
         ),
         body: Form(
@@ -326,7 +327,9 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
                   },
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Center(
                 child: FlatButton(
                   onPressed: () {
@@ -335,7 +338,9 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
                   child: Text(
                     'Forget Password',
                     style: TextStyle(
-                      color: widget.model.isLoading ? Colors.lightGreen : Colors.green,
+                      color: widget.model.isLoading
+                          ? Colors.lightGreen
+                          : Color(0xFF006978),
                       fontSize: 18,
                       fontFamily: 'UbuntuMono',
                     ),
@@ -345,41 +350,52 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
             ],
           ),
         ),
-        bottomNavigationBar: Container(
-          height: 60,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-            child: ButtonTheme(
-              minWidth: double.infinity,
-              child: RaisedButton(
-                color: Color(0xFF1de9b6),
-                onPressed: () {
-                  widget.model.isLoading ? null : submit();
-                },
-                child: Center(
-                  child: widget.model.isLoading
-                      ? Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : Text('Submit'),
+        bottomNavigationBar: ScopedModel<MainModel>(
+          model: new MainModel(),
+          child: ScopedModelDescendant<MainModel>(
+            builder: (context, child, model) {
+              return Container(
+                height: 60,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                  child: ButtonTheme(
+                    minWidth: double.infinity,
+                    child: RaisedButton(
+                      color: Color(0xFF00acc1),
+                      onPressed: () {
+                        model.isLoading ? null : submit();
+                      },
+                      child: Center(
+                        child: model.isLoading
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : Text(
+                                'Submit',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
         ),
       ),
     );
   }
 
-  void showPasswordSentDialog(){
+  void showPasswordSentDialog() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
           title: new Text("Password Sent"),
-          content: new Text(
-              "Your new password has been sent to your email."),
+          content: new Text("Your new password has been sent to your email."),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(

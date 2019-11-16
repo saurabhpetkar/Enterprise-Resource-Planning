@@ -40,7 +40,7 @@ class CVDetailState extends State<CVDetail> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.lightBlueAccent,
           title: Text(
             'Purchase',
           ),

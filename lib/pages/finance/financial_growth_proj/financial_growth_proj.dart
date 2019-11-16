@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import '../../../scoped_models/main.dart';
 
-class ExpenseManagePage extends StatefulWidget {
+class FinanceGPPage extends StatefulWidget {
   final MainModel model;
 
-  ExpenseManagePage(this.model);
+  FinanceGPPage(this.model);
 
   @override
   State<StatefulWidget> createState() {
-    return ExpenseManagePageState();
+    return FinanceGPPageState();
   }
 }
 
-class ExpenseManagePageState extends State<ExpenseManagePage> {
+class FinanceGPPageState extends State<FinanceGPPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(

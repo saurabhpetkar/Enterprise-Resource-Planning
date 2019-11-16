@@ -26,7 +26,7 @@ class EventDetail extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.lightBlueAccent,
           title: Text(
             event.title,
           ),

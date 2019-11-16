@@ -5,7 +5,6 @@ import './scoped_models/main.dart';
 
 import './pages/home/home.dart';
 import './pages/login/login.dart';
-
 import './models/home.dart';
 import './pages/about/about.dart';
 import './pages/home/Events/eventList.dart';
@@ -13,9 +12,21 @@ import './pages/home/Events/eventDetail.dart';
 import './pages/sales/salespage.dart';
 import './pages/sales/purchaseDetail.dart';
 import './pages/hr/cvList.dart';
+import './pages/hr/cvList2.dart';
 import './pages/hr/cvDetail.dart';
 import './pages/finance/finance.dart';
 import './pages/profile/profile.dart';
+import './pages/product/add-product.dart';
+import './pages/product/product-list.dart';
+import './pages/product/product-detail.dart';
+import './pages/meeting/add-meeting.dart';
+import './pages/meeting/meeting-list.dart';
+import './pages/meeting/meeting-detail.dart';
+import './pages/customer_company/customer_company.dart';
+import './pages/training/training.dart';
+
+
+
 
 
 
@@ -55,7 +66,7 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          accentColor: Colors.greenAccent,
+          accentColor: Color(0xFF62efff),
           fontFamily: 'Roboto',
 
         ),
@@ -63,7 +74,6 @@ class _MyAppState extends State<MyApp> {
             ? HomePage(_model)
             : LoginPage(_model),
         routes: {
-
           '/about': (BuildContext context) =>
           _userMode == HomePageMode.not_authenticated
               ? LoginPage(_model)
@@ -72,7 +82,6 @@ class _MyAppState extends State<MyApp> {
           _userMode == HomePageMode.not_authenticated
               ? LoginPage(_model)
               : EventPage(_model),
-
           '/privacy-policy': (BuildContext context) =>
           _userMode == HomePageMode.not_authenticated
               ? LoginPage(_model)
@@ -85,22 +94,18 @@ class _MyAppState extends State<MyApp> {
           _userMode == HomePageMode.not_authenticated
               ? LoginPage(_model)
               : SalesPage(_model),
-
           '/purchase-detail': (BuildContext context) =>
           _userMode == HomePageMode.not_authenticated
               ? LoginPage(_model)
               : PurchaseDetail(_model),
-
           '/hr': (BuildContext context) =>
           _userMode == HomePageMode.not_authenticated
               ? LoginPage(_model)
               : CVPage(_model),
-
           '/finance': (BuildContext context) =>
           _userMode == HomePageMode.not_authenticated
               ? LoginPage(_model)
               : FinancePage(_model),
-
           '/cv-detail': (BuildContext context) =>
           _userMode == HomePageMode.not_authenticated
               ? LoginPage(_model)
@@ -109,20 +114,50 @@ class _MyAppState extends State<MyApp> {
           _userMode == HomePageMode.not_authenticated
               ? LoginPage(_model)
               : ProfilePage(_model),
+          '/add-product': (BuildContext context) =>
+          _userMode == HomePageMode.not_authenticated
+              ? LoginPage(_model)
+              : AddProduct(_model),
+          '/product-list': (BuildContext context) =>
+          _userMode == HomePageMode.not_authenticated
+              ? LoginPage(_model)
+              : ProductListPage(_model),
+          '/product-detail': (BuildContext context) =>
+          _userMode == HomePageMode.not_authenticated
+              ? LoginPage(_model)
+              : ProductDetailPage(_model),
+          '/add-meeting': (BuildContext context) =>
+          _userMode == HomePageMode.not_authenticated
+              ? LoginPage(_model)
+              : AddMeetingPage(_model),
+          '/meeting-list': (BuildContext context) =>
+          _userMode == HomePageMode.not_authenticated
+              ? LoginPage(_model)
+              : MeetingListPage(_model),
+          '/meeting-detail': (BuildContext context) =>
+          _userMode == HomePageMode.not_authenticated
+              ? LoginPage(_model)
+              : MeetingDetailPage(_model),
+          '/company-list': (BuildContext context) =>
+          _userMode == HomePageMode.not_authenticated
+              ? LoginPage(_model)
+              : CompanyPage(_model),
+          '/training': (BuildContext context) =>
+          _userMode == HomePageMode.not_authenticated
+              ? LoginPage(_model)
+              : TrainingPage(_model),
         },
-//        onGenerateRoute: (RouteSettings settings) {
-//          print(settings);
-//          final List<String> pathElements = settings.name.split('/');
-//          String first = pathElements[2];
-//
-//          if (pathElements[1] == 'finance') {
-//            return Finance(first);
+        onGenerateRoute: (RouteSettings settings) {
+          print(settings);
+          final List<String> pathElements = settings.name.split('/');
+//          if(pathElements[1] == 'hr'){
+//            _model.SetCVPage(int.parse(pathElements[2]));
+//            return MaterialPageRoute(
+//              builder: (BuildContext context) => CVList2(_model),
+//            );
 //          }
-//
-//
-//
-//          return null;
-//        },
+          return null;
+        },
         onUnknownRoute: (RouteSettings settings) {
           return MaterialPageRoute(
             builder: (BuildContext context) =>
@@ -132,53 +167,4 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
-
 }
-
-//  MaterialPageRoute<bool> Finance (String first){
-//    if (first == 'AA') {
-//      return MaterialPageRoute<bool>(
-//          builder: (BuildContext context) =>
-//          _isAuthenticated ? LoginPage(_model) : AccountAdministrationPage(_model));
-//    }
-//    else if(first == 'CBA'){
-//      return MaterialPageRoute<bool>(
-//          builder: (BuildContext context) =>
-//          _isAuthenticated ? LoginPage(_model) : CashBankAccPage(_model));
-//    }
-//    else if(first == 'CCP'){
-//      return MaterialPageRoute<bool>(
-//          builder: (BuildContext context) =>
-//          !_isAuthenticated ? LoginPage(_model) : FinancePage(_model));
-//    }
-//    else if(first == 'AM'){
-//      return MaterialPageRoute<bool>(
-//          builder: (BuildContext context) =>
-//          !_isAuthenticated ? LoginPage(_model) : FinancePage(_model));
-//    }
-//    else if(first == 'APAR'){
-//      return MaterialPageRoute<bool>(
-//          builder: (BuildContext context) =>
-//          !_isAuthenticated ? LoginPage(_model) : FinancePage(_model));
-//    }
-//    else if(first == 'SC'){
-//      return MaterialPageRoute<bool>(
-//          builder: (BuildContext context) =>
-//          !_isAuthenticated ? LoginPage(_model) : FinancePage(_model));
-//    }
-//    else if(first == 'SA'){
-//      return MaterialPageRoute<bool>(
-//          builder: (BuildContext context) =>
-//          !_isAuthenticated ? LoginPage(_model) : FinancePage(_model));
-//    }
-//    else if(first == 'FA'){
-//      return MaterialPageRoute<bool>(
-//          builder: (BuildContext context) =>
-//          !_isAuthenticated ? LoginPage(_model) : FinancePage(_model));
-//    }
-//    else if(first == 'FAM'){
-//      return MaterialPageRoute<bool>(
-//          builder: (BuildContext context) =>
-//          !_isAuthenticated ? LoginPage(_model) : FinancePage(_model));
-//    }
-//  }
