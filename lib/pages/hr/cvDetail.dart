@@ -4,6 +4,7 @@ import '../../scoped_models/main.dart';
 import '../../models/cv.dart';
 import './cvpdf.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import '../../global_widgets/drawer.dart';
 
 
 class CVDetail extends StatefulWidget {
@@ -39,10 +40,11 @@ class CVDetailState extends State<CVDetail> {
 
     return SafeArea(
       child: Scaffold(
+        drawer: drawer(context, widget.model.logout, widget.model),
         appBar: AppBar(
           backgroundColor: Colors.lightBlueAccent,
           title: Text(
-            'Purchase',
+            'Details',
           ),
         ),
         body: widget.model.isLoading

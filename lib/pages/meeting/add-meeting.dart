@@ -4,7 +4,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
-
+import '../../global_widgets/drawer.dart';
 
 class AddMeetingPage extends StatefulWidget {
   final MainModel model;
@@ -24,16 +24,16 @@ class AddMeetingPageState extends State<AddMeetingPage> {
   TextEditingController _organiser = TextEditingController();
   TextEditingController _description = TextEditingController();
   TextEditingController _venue = TextEditingController();
+  List<String> departments = [];
 
   DateTime from_date = DateTime.now();
   TimeOfDay _time = TimeOfDay.now();
-
-  TextEditingController _quantity = TextEditingController();
-  TextEditingController _cost = TextEditingController();
+  bool dev = false, d = false, m = false, t = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: drawer(context, widget.model.logout, widget.model),
       appBar: AppBar(
         backgroundColor: Colors.lightBlueAccent,
         title: Text('Add Meeting'),
@@ -46,7 +46,7 @@ class AddMeetingPageState extends State<AddMeetingPage> {
               TopicField(),
               DescriptionField(),
               SizedBox(
-                height: 10,
+                height: 5,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -64,11 +64,129 @@ class AddMeetingPageState extends State<AddMeetingPage> {
                 ),
               ),
               VenueField(),
+//              SizedBox(
+//                height: 5,
+//              ),
+              Checkboxes(),
+              Padding(padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5), child: (m | d | dev | t)? Text("") : Text('You have to select atleast one', style: TextStyle(color: Colors.red),),)
             ],
           ),
         ),
       ),
       bottomNavigationBar: bottomNavBar(),
+    );
+  }
+
+  Widget Checkboxes(){
+    return Container(
+      padding:
+      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 0),
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Checkbox(
+                        value: dev,
+                        onChanged: (val) {
+                          dev = val;
+                          if (val == true)
+                            departments.add('Developers');
+                          else
+                            departments.remove('Developers');
+                          setState(() {
+                          });
+                        },
+                      ),
+                      flex: 1,
+                    ),
+                    Expanded(child: Text('Developers'), flex: 2),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Checkbox(
+                        value: d,
+                        onChanged: (val) {
+                          d = val;
+                          if (val == true)
+                            departments.add('Design');
+                          else
+                            departments.remove('Design');
+                          setState(() {});
+                        },
+                      ),
+                      flex: 1,
+                    ),
+                    Expanded(child: Text('Design'), flex: 2),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Checkbox(
+                        value: m,
+                        onChanged: (val) {
+                          m = val;
+                          if (val == true)
+                            departments.add('Marketing');
+                          else
+                            departments.remove('Marketing');
+                          setState(() {
+
+                          });
+                        },
+                      ),
+                      flex: 1,
+                    ),
+                    Expanded(child: Text('Marketing'), flex: 2),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Checkbox(
+                        value: t,
+                        onChanged: (val) {
+                          t = val;
+                          if (val == true)
+                            departments.add('Testing');
+                          else
+                            departments.remove('Testing');
+                          setState(() {
+
+                          });
+                        },
+                      ),
+                      flex: 1,
+                    ),
+                    Expanded(child: Text('Testing'), flex: 2),
+                  ],
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+
     );
   }
 
@@ -213,8 +331,7 @@ class AddMeetingPageState extends State<AddMeetingPage> {
         setState(() {
           _time = picked;
         });
-      }
-      else if(pick - now >= 1){
+      } else if (pick - now >= 1) {
         setState(() {
           _time = picked;
         });
@@ -229,7 +346,7 @@ class AddMeetingPageState extends State<AddMeetingPage> {
         controller: _organiser,
         //new password
         keyboardType: TextInputType.text,
-        decoration: InputDecoration(hintText: 'Organiser'),
+        decoration: InputDecoration(hintText: 'Topic'),
         validator: (value) {
           if (value.length == 0) return 'Cant leave it empty';
           return null;
@@ -255,7 +372,7 @@ class AddMeetingPageState extends State<AddMeetingPage> {
   }
 
   void AreYouSure() {
-    if (this._formKey.currentState.validate()) {
+    if (this._formKey.currentState.validate() && departments.length > 0) {
       _formKey.currentState.save(); // Save our form now.
       _showComfirmDialog();
     }
@@ -308,7 +425,6 @@ class AddMeetingPageState extends State<AddMeetingPage> {
       model: new MainModel(),
       child: ScopedModelDescendant<MainModel>(
         builder: (context, child, model) {
-          print('loading: ' + model.isLoading.toString());
           return Container(
             height: 60,
             child: Padding(
@@ -345,12 +461,23 @@ class AddMeetingPageState extends State<AddMeetingPage> {
     setState(() {
       isLoading = true;
     });
-    String date = from_date.day.toString() + '-'+from_date.month.toString() + '-'+from_date.year.toString();
-    Map<String, dynamic> meeting = {'organiser': _organiser.text, 'description': _description.text, 'date': date, 'time': _time.format(context), 'location': _venue.text};
+    String date = from_date.day.toString() +
+        '-' +
+        from_date.month.toString() +
+        '-' +
+        from_date.year.toString();
+    Map<String, dynamic> meeting = {
+      'organiser': _organiser.text,
+      'description': _description.text,
+      'date': date,
+      'time': _time.format(context),
+      'location': _venue.text,
+      'departments': departments
+    };
 
 //    http.Response response = await http.post(
 //      link,
-//      body: json.encode(product),
+//      body: json.encode(meeting),
 //      headers: {'Content-Type': 'application/json'},
 //    );
     http.Response response = await http

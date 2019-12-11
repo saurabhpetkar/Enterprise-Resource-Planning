@@ -38,7 +38,7 @@ class MeetingDetailPageState extends State<MeetingDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: drawer(context, widget.model.logout),
+      drawer: drawer(context, widget.model.logout, widget.model),
       appBar: AppBar(
         title: Text('Meeting'),
         backgroundColor: Colors.lightBlueAccent,

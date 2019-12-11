@@ -44,7 +44,7 @@ class PrivacyPolicyPageState extends State<PrivacyPolicyPage>
             backgroundColor: Colors.lightBlueAccent,
             elevation: 2.0,
           ),
-          drawer: drawer(context, model.logout),
+          drawer: drawer(context, model.logout, widget.model),
           body: AnimatedBuilder(
             animation: _controller,
             builder: (BuildContext context, Widget child) {

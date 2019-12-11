@@ -15,6 +15,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  Map<String, dynamic> user = {
+    'username': 'username',
+    'password': 'blah',
+  };
+  bool isloading = false;
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   double size = 50;
 
@@ -29,74 +34,113 @@ class _LoginPageState extends State<LoginPage> {
       print('cant launch ${url}');
     }
   }
+  void authform(Function authenticate) async {
+    if (!_formkey.currentState.validate()) {
+      return;
+    }
+    _formkey.currentState.save();
+
+    setState(() {
+      isloading = true;
+    });
+    final Map<String, dynamic> successInformation = await authenticate(
+      user['username'],
+      user['password'],
+    );
+    setState(() {
+      isloading = false;
+    });
+
+    if (!successInformation['success']) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error', style: TextStyle(color: Colors.red),),
+            content: Text("Sorry, We could not recognize you. Please contact to the HR department for any guidance."),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('OK'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> user = {
-      'email': 'email',
-      'password': 'blah',
-    };
+
     double border_top = MediaQuery.of(context).size.height > 680 ? 30 : 15;
     double border_side = MediaQuery.of(context).size.height > 680 ? 15 : 30;
 
-    void authform(Function authenticate) async {
-      if (!_formkey.currentState.validate()) {
-        return;
-      }
-      _formkey.currentState.save();
-
-      final Map<String, dynamic> successInformation = await authenticate(
-        user['email'],
-        user['password'],
-      );
-
-      if (!successInformation['success']) {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Error'),
-              content: Text(successInformation['message']),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text('OK'),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-              ],
-            );
-          },
-        );
-      }
-    }
-
-    final emailField = TextFormField(
-      initialValue: 'sss@s.com',
-      keyboardType: TextInputType.emailAddress,
-      onSaved: (String value) {
-        user['email'] = value;
-      },
-      validator: (String value) {
-        if (value.isEmpty)
-          return 'Cant leave it empty.';
-        else if (RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-            .hasMatch(value)) {
-          //its an email
-        } else
-          return 'It has to be a valid email id';
-      },
-      decoration: InputDecoration(
-        icon: Padding(
-          padding: EdgeInsets.all(7.0),
-          child: Icon(
-            Icons.email,
-            //color: Colors.white,
+    return new Scaffold(
+      body: Padding(
+        padding: EdgeInsets.only(
+            top: border_top, left: border_side, right: border_side),
+        child: Form(
+          key: _formkey,
+          child: ListView(
+            children: <Widget>[
+              logo(),
+              Title(),
+              SizedBox(
+                height: 15.0,
+              ),
+              UsernameField(),
+              SizedBox(
+                height: 15.0,
+              ),
+              passwordField(),
+              loginButton(),
+              Register(),
+            ],
           ),
         ),
-        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        hintText: "Email",
       ),
     );
-    final passwordField = TextFormField(
+  }
+
+  Widget loginButton(){
+    return Padding(
+      padding: EdgeInsets.only(top: 10.0),
+      child: GestureDetector(
+          child: Container(
+            alignment: Alignment.center,
+            height: 60,
+            decoration: new BoxDecoration(
+                color: Color(0xFF00bcd4),
+                borderRadius: new BorderRadius.circular(9.0)),
+            child: isloading
+                ? Center(
+              child: CircularProgressIndicator(),
+            )
+                : Text(
+              "Login",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18),
+            ),
+          ),
+          onTap: () {
+            if(isloading == false) {
+              setState(() {
+                isloading = true;
+
+              });
+              authform(widget.model.authenticate);
+            }
+          }),
+    );
+  }
+
+  Widget passwordField (){
+    return TextFormField(
       obscureText: true,
       initialValue: 'sss',
       keyboardType: TextInputType.text,
@@ -118,69 +162,30 @@ class _LoginPageState extends State<LoginPage> {
         hintText: "Password",
       ),
     );
+  }
 
-    final loginButton = ScopedModelDescendant<MainModel>(
-      builder: (BuildContext context, Widget child, MainModel model) {
-        return Padding(
-          padding: EdgeInsets.only(top: 10.0),
-          child: GestureDetector(
-              child: Container(
-                alignment: Alignment.center,
-                height: 60,
-                decoration: new BoxDecoration(
-                    color: Color(0xFF00bcd4),
-                    borderRadius: new BorderRadius.circular(9.0)),
-                child: model.isLoading
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : Text(
-                        "Login",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                      ),
-              ),
-              onTap: () {
-                authform(model.authenticate);
-              }),
-        );
+  Widget UsernameField(){
+    return TextFormField(
+      initialValue: 'akshay',
+      keyboardType: TextInputType.emailAddress,
+      onSaved: (String value) {
+        user['username'] = value;
       },
-    );
+      validator: (String value) {
+        if (value.isEmpty)
+          return 'Cant leave it empty.';
 
-    return new Scaffold(
-      body: ScopedModelDescendant<MainModel>(
-        builder: (BuildContext context, Widget child, MainModel model) {
-          return model.isLoading
-              ? Center(
-                  child: Text('Flash Screen'),
-                )
-              : Padding(
-                  padding: EdgeInsets.only(
-                      top: border_top, left: border_side, right: border_side),
-                  child: Form(
-                    key: _formkey,
-                    child: ListView(
-                      children: <Widget>[
-                        logo(),
-                        Title(),
-                        SizedBox(
-                          height: 15.0,
-                        ),
-                        emailField,
-                        SizedBox(
-                          height: 15.0,
-                        ),
-                        passwordField,
-                        loginButton,
-                        Register(),
-                      ],
-                    ),
-                  ),
-                );
-        },
+      },
+      decoration: InputDecoration(
+        icon: Padding(
+          padding: EdgeInsets.all(7.0),
+          child: Icon(
+            Icons.email,
+            //color: Colors.white,
+          ),
+        ),
+        contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+        hintText: "Username",
       ),
     );
   }
@@ -191,7 +196,7 @@ class _LoginPageState extends State<LoginPage> {
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            _launchURL('https://www.google.com/');
+            _launchURL('http://'+ widget.model.ip + "");
           },
           child: Padding(
             padding: const EdgeInsets.only(
@@ -306,3 +311,44 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
+
+
+//older scaffold
+
+
+//    return new Scaffold(
+//      body: ScopedModelDescendant<MainModel>(
+//        builder: (BuildContext context, Widget child, MainModel model) {
+//          print('login body');
+//          return model.isLoading
+//              ? Center(
+//                  child: Text('Flash Screen'),
+//                )
+//              : Padding(
+//                  padding: EdgeInsets.only(
+//                      top: border_top, left: border_side, right: border_side),
+//                  child: Form(
+//                    key: _formkey,
+//                    child: ListView(
+//                      children: <Widget>[
+//                        logo(),
+//                        Title(),
+//                        SizedBox(
+//                          height: 15.0,
+//                        ),
+//                        emailField(),
+//                        SizedBox(
+//                          height: 15.0,
+//                        ),
+//                        passwordField(),
+//                        loginButton(),
+//                        Register(),
+//                      ],
+//                    ),
+//                  ),
+//                );
+//        },
+//      ),
+//    );
+

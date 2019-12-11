@@ -22,7 +22,7 @@ class EventPageState extends State<EventPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: drawer(context, widget.model.logout),
+      drawer: drawer(context, widget.model.logout, widget.model),
       appBar: AppBar(
         backgroundColor: Colors.lightBlueAccent,
         title: Hero(

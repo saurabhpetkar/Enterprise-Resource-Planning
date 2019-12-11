@@ -5,6 +5,7 @@ import '../../models/product.dart';
 import 'package:string_validator/string_validator.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../../global_widgets/drawer.dart';
 
 class AddProduct extends StatefulWidget {
   final MainModel model;
@@ -36,7 +37,7 @@ class AddProductPage extends State<AddProduct> {
       'discount': double.parse(_discount.text)
     };
 
-    String link = 'http://' + '10.0.55.62:8000' + '/sales/restproduct/';
+    String link = 'http://' + '10.0.51.119:8000' + '/sales/restproduct/';
     http.Response response = await http.post(
       link,
       body: json.encode(product),
@@ -55,6 +56,7 @@ class AddProductPage extends State<AddProduct> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: drawer(context, widget.model.logout, widget.model),
       appBar: AppBar(
         backgroundColor: Colors.lightBlueAccent,
         title: Text('Add Product'),

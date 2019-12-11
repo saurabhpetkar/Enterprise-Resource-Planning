@@ -28,7 +28,7 @@ class CVPageState extends State<CVPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: drawer(context, widget.model.logout),
+      drawer: drawer(context, widget.model.logout, widget.model),
       appBar: AppBar(
         backgroundColor: Colors.lightBlueAccent,
         title: Hero(
@@ -130,7 +130,7 @@ class PagewiseListViewExample extends StatelessWidget {
                             ),
                             Container(
                               decoration: BoxDecoration(
-                                color: Colors.greenAccent,
+                                color: Color(0xFF006978).withOpacity(0.8),
                                 borderRadius: BorderRadius.vertical(
                                   bottom: Radius.circular(2),
                                 ),

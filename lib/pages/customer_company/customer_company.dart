@@ -36,7 +36,7 @@ class CompanyPageState extends State<CompanyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: drawer(context, widget.model.logout),
+      drawer: drawer(context, widget.model.logout, widget.model),
       appBar: AppBar(
         title: Text('Customer Companies'),
         backgroundColor: Colors.lightBlueAccent,
@@ -132,7 +132,7 @@ class CompanyPageState extends State<CompanyPage> {
 //    http.Response response = await http
 //        .get('http://jsonplaceholder.typicode.com/posts?_start=10&_limit=3');
 
-    String link = 'http://' + '10.0.55.62:8000' + '/sales/restcustomer/';
+    String link = 'http://' + '10.0.51.119:8000' + '/sales/restcustomer/';
     print(link);
 
     final responseBody = await http.get(

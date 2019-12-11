@@ -16,135 +16,153 @@ class FinancePage extends StatefulWidget {
   }
 }
 
-class FinancePageState extends State<FinancePage> {
+class FinancePageState extends State<FinancePage>
+    with SingleTickerProviderStateMixin {
+
+
+
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    Color color = Color(0xFFEC407A);
+    Color text_color = Colors.white;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: Text('Finance'),
           backgroundColor: Colors.lightBlueAccent,
         ),
-        body: Scrollbar(
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: Container(
-                  width: double.infinity,
-                  padding:
-                      EdgeInsets.only(top: 10, left: 10, bottom: 5, right: 5),
-                  child: RaisedButton(
-                    onPressed: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FinanceTrackPage(widget.model)),
-                      );
-                    },
-                    elevation: 10,
-                    color: Colors.orangeAccent,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
+
+        body: Container(
+          color: Colors.white,
+          child: Scrollbar(
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    width: double.infinity,
+                    padding:
+                    EdgeInsets.only(top: 10, left: 10, bottom: 5, right: 5),
+                    child: RaisedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FinanceManagePage(widget.model),
+                          ),
+                        );
+                      },
+                      elevation: 10,
+                      color: color,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
                       ),
-                    ),
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      'Financial Tracking',
-                      style: TextStyle(fontWeight: FontWeight.w700),
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        'Financial Tracking',
+                        style: TextStyle(fontWeight: FontWeight.w700, color: text_color),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  width: double.infinity,
-                  padding:
-                  EdgeInsets.only(top: 10, left: 10, bottom: 5, right: 5),
-                  child: RaisedButton(
-                    onPressed: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FinanceManagePage(widget.model)),
-                      );
-                    },
-                    elevation: 10,
-                    color: Colors.orangeAccent,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    width: double.infinity,
+                    padding:
+                        EdgeInsets.only(top: 10, left: 10, bottom: 5, right: 5),
+                    child: RaisedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  FinanceManagePage(widget.model)),
+                        );
+                      },
+                      elevation: 10,
+                      color: color,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
                       ),
-                    ),
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      'Financial Management',
-                      style: TextStyle(fontWeight: FontWeight.w700),
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        'Financial Management',
+                        style: TextStyle(fontWeight: FontWeight.w700, color: text_color),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  width: double.infinity,
-                  padding:
-                  EdgeInsets.only(top: 10, left: 10, bottom: 5, right: 5),
-                  child: RaisedButton(
-                    onPressed: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FinanceStatementPage(widget.model)),
-                      );
-                    },
-                    elevation: 10,
-                    color: Colors.orangeAccent,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    width: double.infinity,
+                    padding:
+                        EdgeInsets.only(top: 10, left: 10, bottom: 5, right: 5),
+                    child: RaisedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  FinanceStatementPage(widget.model)),
+                        );
+                      },
+                      elevation: 10,
+                      color: color,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
                       ),
-                    ),
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      'Financial Statement',
-                      style: TextStyle(fontWeight: FontWeight.w700),
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        'Financial Statement',
+                        style: TextStyle(fontWeight: FontWeight.w700, color: text_color),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  width: double.infinity,
-                  padding:
-                  EdgeInsets.only(top: 10, left: 10, bottom: 5, right: 5),
-                  child: RaisedButton(
-                    onPressed: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FinanceGPPage(widget.model)),
-                      );
-                    },
-                    elevation: 10,
-                    color: Colors.orangeAccent,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    width: double.infinity,
+                    padding:
+                        EdgeInsets.only(top: 10, left: 10, bottom: 5, right: 5),
+                    child: RaisedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  FinanceGPPage(widget.model)),
+                        );
+                      },
+                      elevation: 10,
+                      color: color,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
                       ),
-                    ),
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      'Financial Growth Projection',
-                      style: TextStyle(fontWeight: FontWeight.w700),
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        'Financial Growth Projection',
+                        style: TextStyle(fontWeight: FontWeight.w700, color: text_color),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -213,4 +231,45 @@ class FinancePageState extends State<FinancePage> {
 //      ),
 //    );
 //  }
+//  Expanded(
+//  flex: 1,
+//  child: Container(
+//  width: double.maxFinite,
+//  padding: EdgeInsets.all(10),
+//  child: Stack(fit: StackFit.expand,
+//  children: <Widget>[
+//  ClipRRect(
+//  child: Image.network("https://image.shutterstock.com/image-photo/financial-data-term-digital-prices-600w-1096299314.jpg", fit: BoxFit.fitWidth),
+//  borderRadius: BorderRadius.all(
+//  Radius.circular(10),
+//  ),
+//  ),
+//  Align(child: Text('Financial Tracking', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700),), alignment: Alignment(0.8, 0.8),)
+//  ],)
+//  )),
+
+//                      child: Container(
+//                        decoration: BoxDecoration(
+//                          image: DecorationImage(
+//                            image: AssetImage(
+//                                'assets/images/finance/finance_tracking.jpeg'),
+//                          ),
+//                        ),
+//                        child: GestureDetector(
+//                          onTap: () {
+//                            Navigator.push(
+//                              context,
+//                              MaterialPageRoute(
+//                                  builder: (context) =>
+//                                      FinanceTrackPage(widget.model)),
+//                            );
+//                          },
+//                          child: Text(
+//                            'Financial Tracking',
+//                            style: TextStyle(fontWeight: FontWeight.w700),
+//                          ),
+//                        ),
+//                        padding: EdgeInsets.all(10),
+//                      ),
+
 }

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class TrainingDetailPage extends StatelessWidget {
-  final Map<String, dynamic> _training;
-  TrainingDetailPage(this._training);
+class ComplainDetailPage extends StatelessWidget {
+  final Map<String, dynamic> _complain;
+  ComplainDetailPage(this._complain);
 
 
   TextStyle attr = TextStyle(
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: FontWeight.w600,
     color: Colors.black,
   );
   TextStyle content = TextStyle(
-    fontSize: 19,
+    fontSize: 18,
     fontWeight: FontWeight.w500,
     color: Color(0xff333333),
   );
@@ -42,7 +42,7 @@ class TrainingDetailPage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             vertical: 5, horizontal: 10),
                         child: Text(
-                          'Trainer',
+                          'From',
                           style: attr,
                         ),
                       ),
@@ -53,7 +53,7 @@ class TrainingDetailPage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             vertical: 5, horizontal: 10),
                         child: Text(
-                          _training['trainer'],
+                          _complain['complainer'],
                           style: content,
                         ),
                       ),
@@ -71,7 +71,7 @@ class TrainingDetailPage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             vertical: 5, horizontal: 10),
                         child: Text(
-                          'Trainee',
+                          'Against',
                           style: attr,
                         ),
                       ),
@@ -82,7 +82,7 @@ class TrainingDetailPage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             vertical: 5, horizontal: 10),
                         child: Text(
-                          _training['trainee'],
+                          _complain['against'],
                           style: content,
                         ),
                       ),
@@ -101,7 +101,7 @@ class TrainingDetailPage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             vertical: 5, horizontal: 10),
                         child: Text(
-                          'Start Date',
+                          'Complain Date',
                           style: attr,
                         ),
                       ),
@@ -112,7 +112,7 @@ class TrainingDetailPage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             vertical: 5, horizontal: 10),
                         child: Text(
-                          _training['start_date'],
+                          _complain['date'],
                           style: content,
                         ),
                       ),
@@ -121,41 +121,13 @@ class TrainingDetailPage extends StatelessWidget {
                 ),
                 Divider(),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 10),
-                        child: Text(
-                          'End date',
-                          style: attr,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 4,
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 10),
-                        child: Text(
-                          _training['end_date'],
-                          style: content,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Divider(),
+
 
                 Container(
                   padding:
                   EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                   child: Text(
-                    'Description',
+                    'Reason',
                     style: attr,
                   ),
                 ),
@@ -163,7 +135,7 @@ class TrainingDetailPage extends StatelessWidget {
                   padding:
                   EdgeInsets.symmetric(vertical: 0, horizontal: 5),
                   child: Text(
-                    _training['description'],
+                    _complain['reason'],
                     textAlign: TextAlign.justify,
                     style: TextStyle(
                       fontSize: 14,

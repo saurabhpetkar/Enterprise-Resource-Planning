@@ -35,10 +35,10 @@ class ProductDetailPageState extends State<ProductDetailPage> {
     color: Color(0xff333333),
   );
 
-  @override
+  @override  
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: drawer(context, widget.model.logout),
+      drawer: drawer(context, widget.model.logout, widget.model),
       appBar: AppBar(
         title: Text('Product'),
         backgroundColor: Colors.lightBlueAccent,

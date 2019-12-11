@@ -27,7 +27,7 @@ class SalesPageState extends State<SalesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: drawer(context, widget.model.logout),
+      drawer: drawer(context, widget.model.logout, widget.model),
       appBar: AppBar(
         backgroundColor: Colors.lightBlueAccent,
         title: Hero(
@@ -44,12 +44,13 @@ class SalesPageState extends State<SalesPage> {
           ),
         ),
       ),
-      body: widget.model.isLoading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : PagewiseListViewExample(
-              widget.model.logout, widget.model.setPurchase),
+      body: Container(
+        padding: EdgeInsets.only(top: 10),
+        child: PagewiseListViewExample(
+          widget.model.logout,
+          widget.model.setPurchase,
+        ),
+      ),
     );
   }
 }
@@ -184,27 +185,28 @@ class PagewiseListViewExample extends StatelessWidget {
 
 class BackendService {
   static Future<List<Purchase>> getPosts(offset, limit) async {
-    String link = 'http://' + '10.0.55.62:8000' + '/sales/restproduct/';
+    String link = 'http://' + '10.0.51.119:8000' + '/sales/restproduct/';
     print(link);
 //    final responseBody = (await http.get(
 //        'http://jsonplaceholder.typicode.com/posts?_start=$offset&_limit=$limit'))
-    final responseBody = await http.get(
-      link,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    );
-
-    final list = json.decode(responseBody.body);
-
-    print(list);
-
-    List<Purchase> data3 = [];
-    for(int i = 0; i < list.length; i++){
-      final p = Purchase(itemname: list[i]['itemname'], description: list[i]['description'], quantity: list[i]['quantity'], price: list[i]['price'], discount: list[i]['discount']);
-      data3.add(p);
-    }
-    return data3;
+//    final responseBody = await http.get(
+//      link,
+//      headers: {
+//        'Content-Type': 'application/json',
+//      },
+//    );
+//
+//    final list = json.decode(responseBody.body);
+//
+//    print(list);
+//
+//    List<Purchase> data3 = [];
+//    for(int i = 0; i < list.length; i++){
+//      final p = Purchase(itemname: list[i]['itemname'], description: list[i]['description'], quantity: list[i]['quantity'], price: list[i]['price'], discount: list[i]['discount']);
+//      data3.add(p);
+//    }
+//    return data2;
+    return data2;
   }
 }
 //final Map<String, dynamic> authdata_login = {
@@ -233,95 +235,75 @@ class BackendService {
 //  }
 //}
 
-//List<Purchase> data2 = [
-//  Purchase(
-//      product: 'shaving cream',
-//      quantity: 1,
-//      buyer: 'deepesh B',
-//      id: '1',
-//      seller: 'gelette',
-//      day: '1',
-//      month: 'DEC',
-//      year: '2019'),
-//  Purchase(
-//      product: 'One Plus 7',
-//      quantity: 1,
-//      buyer: 'Saurabh S P',
-//      id: '2',
-//      seller: 'One Plus',
-//      day: '2',
-//      month: 'DEC',
-//      year: '2019'),
-//  Purchase(
-//      product: 'Bhujiya',
-//      quantity: 1,
-//      buyer: 'Kalpa',
-//      id: '1',
-//      seller: 'food',
-//      day: '3',
-//      month: 'DEC',
-//      year: '2019'),
-//  Purchase(
-//      product: 'Chappal',
-//      quantity: 1,
-//      buyer: 'Akshay',
-//      id: '1',
-//      seller: 'paragon',
-//      day: '4',
-//      month: 'DEC',
-//      year: '2019'),
-//  Purchase(
-//      product: 'Laptop',
-//      quantity: 1,
-//      buyer: 'atul P',
-//      id: '1',
-//      seller: 'lenovo',
-//      day: '5',
-//      month: 'DEC',
-//      year: '2019'),
-//  Purchase(
-//      product: 'Ear phones',
-//      quantity: 1,
-//      buyer: 'Sid G',
-//      id: '1',
-//      seller: 'boat',
-//      day: '6',
-//      month: 'DEC',
-//      year: '2019'),
-//  Purchase(
-//      product: 'Honor',
-//      quantity: 1,
-//      buyer: 'Prerana',
-//      id: '1',
-//      seller: 'mobile',
-//      day: '7',
-//      month: 'DEC',
-//      year: '2019'),
-//  Purchase(
-//      product: 'Apologies',
-//      quantity: 1000000,
-//      buyer: 'Subu',
-//      id: '1',
-//      seller: 'Sorry Guys Brand',
-//      day: '8',
-//      month: 'DEC',
-//      year: '2019'),
-//  Purchase(
-//      product: 'Placements',
-//      quantity: 1,
-//      buyer: 'Director',
-//      id: '1',
-//      seller: 'good one',
-//      day: '9',
-//      month: 'DEC',
-//      year: '2019'),
-//  Purchase(
-//      product: 'Cholestroll',
-//      quantity: 1,
-//      buyer: 'Sukirti',
-//      id: '1',
-//      seller: 'KFCs',
-//      day: '10',
-//      month: 'DEC',
-//      year: '2019'),
-//];
+List<Purchase> data2 = [
+  Purchase(
+    itemname: 'shaving cream',
+    quantity: 1,
+    description: 'deepesh B',
+    price: 100,
+    discount: 10,
+  ),
+  Purchase(
+    itemname: 'shaving cream',
+    quantity: 1,
+    description: 'deepesh B',
+    price: 100,
+    discount: 10,
+  ),
+  Purchase(
+    itemname: 'shaving cream',
+    quantity: 1,
+    description: 'deepesh B',
+    price: 100,
+    discount: 10,
+  ),
+  Purchase(
+    itemname: 'shaving cream',
+    quantity: 1,
+    description: 'deepesh B',
+    price: 100,
+    discount: 10,
+  ),
+  Purchase(
+    itemname: 'shaving cream',
+    quantity: 1,
+    description: 'deepesh B',
+    price: 100,
+    discount: 10,
+  ),
+  Purchase(
+    itemname: 'shaving cream',
+    quantity: 1,
+    description: 'deepesh B',
+    price: 100,
+    discount: 10,
+  ),
+  Purchase(
+    itemname: 'shaving cream',
+    quantity: 1,
+    description: 'deepesh B',
+    price: 100,
+    discount: 10,
+  ),
+  Purchase(
+    itemname: 'shaving cream',
+    quantity: 1,
+    description: 'deepesh B',
+    price: 100,
+    discount: 10,
+  ),
+  Purchase(
+    itemname: 'shaving cream',
+    quantity: 1,
+    description: 'deepesh B',
+    price: 100,
+    discount: 10,
+  ),
+  Purchase(
+    itemname: 'shaving cream',
+    quantity: 1,
+    description: 'deepesh B',
+    price: 100,
+    discount: 10,
+  ),
+];

@@ -25,7 +25,7 @@ class _AboutPageState extends State<AboutPage> {
         backgroundColor: Colors.lightBlueAccent,
         elevation: 2.0,
       ),
-      drawer: drawer(context, widget.model.logout),
+      drawer: drawer(context, widget.model.logout, widget.model),
       body: Column(
         children: <Widget>[
           Padding(

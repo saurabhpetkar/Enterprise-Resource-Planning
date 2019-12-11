@@ -42,12 +42,12 @@ class UserModel extends ConnectedModel {
   }
 
   Future<Map<String, dynamic>> authenticate(
-      String email, String password) async {
+      String username, String password) async {
     _isloading = true;
     notifyListeners();
 
     final Map<String, dynamic> authdata_login = {
-      'email': email,
+      'username': username,
       'password': password,
     };
 
@@ -56,8 +56,7 @@ class UserModel extends ConnectedModel {
     String message = 'incorrect data entered';
 
     //eras the below later
-    String access = 'access';
-    String refresh = 'refresh';
+    String token = 'token';
 
     setAuthTimeout(1 * 3600 * 24); //1day timeout in seconds
     final DateTime now = DateTime.now();
@@ -65,24 +64,21 @@ class UserModel extends ConnectedModel {
         now.add(Duration(seconds: 1 * 3600 * 24)); //1 day in seconds
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('refresh', refresh);
     prefs.setString('username', name);
-    prefs.setString('access', access);
-    //prefs.setString('refresh', responsedata['refresh']);
-//      prefs.setString('username', responsedata['username']);
-//      prefs.setString('access', responsedata['access']);
+    prefs.setString('token', token);
+    prefs.setString('email', 'a@a.com');
+
     prefs.setString('expiryTime', expiryTime.toIso8601String());
     //erase the above later
-    //_userSubject.add(true);
 //    print(authdata_signup);
-//    http.Response response;
+//
 //
 //      String link = "link to login";
 //
-//      response = await http.post(
+//      http.Response response = await http.post(
 //        link,
 //        body: json.encode(authdata_login),
-//        headers: {'Content-Type': 'application/json'},
+//        headers: {'Content-Type': 'application/json', 'accept': 'application/json'},
 //      );
 //
 //    print('ye hai response ${json.decode(response.body)}');
@@ -92,9 +88,13 @@ class UserModel extends ConnectedModel {
 //    if (response.statusCode != 400 && response.statusCode != 401) {
 //      haserror = false;
 //      _authenticatedUser = User(
-//        refresh: responsedata['refresh'],
-//        access: responsedata['access'],
-//        username: responsedata['username'],
+//        token: responsedata['token'],
+//        username: username,
+    //    fname: responsedata['fname']
+    //    lname: responsedata['lname']
+    //    email: responsedata['email']
+
+
 //      );
 //
 //      setAuthTimeout(1 * 3600 * 24); //1day timeout in seconds
@@ -103,26 +103,33 @@ class UserModel extends ConnectedModel {
 //      now.add(Duration(seconds: 1 * 3600 * 24)); //1 day in seconds
 //
 //      final SharedPreferences prefs = await SharedPreferences.getInstance();
-//      prefs.setString('refresh', responsedata['refresh']);
 //      prefs.setString('username', responsedata['username']);
-//      prefs.setString('access', responsedata['access']);
+//      prefs.setString('token', responsedata['token']);
 //      prefs.setString('expiryTime', expiryTime.toIso8601String());
+//      prefs.setString('fname', responsedata['fname']);
+    //      prefs.setString('lname', responsedata['lname']);
+    //      prefs.setString('email', responsedata['email']);
+
+
+
 //      _userSubject.add(true);
 //    }
 //    else{
 //      return {'success': false, 'error': 'some error'};
 //    }
 
-    //only frontend purpose
+    _authenticatedUser = User(
+        username: 'user',  token: 'token', email: 'a@a.com');
     haserror = false;
     message = 'Logged in';
-    _usermode.add(HomePageMode.authenticated);
-    //only for frontend purpose
-
     _isloading = false;
     notifyListeners();
-    _authenticatedUser = User(
-        username: 'user', refresh: 'refresh', access: 'access', email: email);
+    if(haserror == false)
+      _usermode.add(HomePageMode.authenticated);
+    //only for frontend purpose
+
+
+
     return {'success': !haserror, 'message': message};
   }
 
@@ -130,41 +137,43 @@ class UserModel extends ConnectedModel {
     _isloading = true;
     notifyListeners();
     print('in autoauthenticate');
-    _usermode.add(HomePageMode.not_authenticated);
+//    _usermode.add(HomePageMode.not_authenticated);
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String access = prefs.getString('access');
+    final String token = prefs.getString('token');
 
-    if (access != null) {
+    if (token != null) {
       final String expiryTime = prefs.getString('expiryTime');
-      print('access not null');
+      print('token not null');
       final DateTime now = DateTime.now();
       final parsedExpiryTime = DateTime.parse(expiryTime);
       if (parsedExpiryTime.isBefore(now)) {
-        print('access expired');
+        print('token expired');
         _isloading = false;
         notifyListeners();
         _usermode.add(HomePageMode.not_authenticated);
       }
-      print('access not expired');
+      print('token not expired');
 
       _authenticatedUser = User(
-        access: prefs.getString('access'),
-        refresh: prefs.getString('refresh'),
+        token: prefs.getString('token'),
         username: prefs.getString('username'),
+        email: prefs.getString('email'),
+        //        fname: prefs.getString('fname'),
+//        lname: prefs.getString('lname'),
+
       );
+
       final int tokenlifespan = parsedExpiryTime.difference(now).inSeconds;
       setAuthTimeout(tokenlifespan);
 
       _isloading = false;
       notifyListeners();
       print('he is authenticated');
+      print(_authenticatedUser);
       _usermode.add(HomePageMode.authenticated);
     }
-    print('access null');
-
     _isloading = false;
-    print('hi there $_isloading');
     notifyListeners();
     print('out of autoauthenticate');
 
@@ -215,9 +224,13 @@ class UserModel extends ConnectedModel {
 
 class UtilityModel extends ConnectedModel {
   bool get isLoading {
-//    print(_isloading);
     return _isloading;
   }
+
+  String get ip {
+    return "10.0.55.60:8000";
+  }
+
 }
 
 class EventModel extends ConnectedModel {

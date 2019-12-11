@@ -70,34 +70,34 @@ class PurchaseDetail extends StatelessWidget {
               ),
 
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 10),
-                      child: Text(
-                        'Discount',
-                        style: attr,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 10),
-                      child: Text(
-                        purchase.discount.toString(),
-                        style: content,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+//              Row(
+//                mainAxisAlignment: MainAxisAlignment.start,
+//                crossAxisAlignment: CrossAxisAlignment.start,
+//                children: <Widget>[
+//                  Expanded(
+//                    flex: 1,
+//                    child: Container(
+//                      padding: EdgeInsets.symmetric(
+//                          vertical: 5, horizontal: 10),
+//                      child: Text(
+//                        'Discount',
+//                        style: attr,
+//                      ),
+//                    ),
+//                  ),
+//                  Expanded(
+//                    flex: 2,
+//                    child: Container(
+//                      padding: EdgeInsets.symmetric(
+//                          vertical: 5, horizontal: 10),
+//                      child: Text(
+//                        purchase.discount.toString(),
+//                        style: content,
+//                      ),
+//                    ),
+//                  ),
+//                ],
+//              ),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -160,7 +160,7 @@ class PurchaseDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: Container(
                       padding: EdgeInsets.symmetric(
                           vertical: 5, horizontal: 10),
@@ -171,7 +171,7 @@ class PurchaseDetail extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: Container(
                       padding: EdgeInsets.symmetric(
                           vertical: 5, horizontal: 10),

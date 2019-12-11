@@ -24,14 +24,11 @@ import './pages/meeting/meeting-list.dart';
 import './pages/meeting/meeting-detail.dart';
 import './pages/customer_company/customer_company.dart';
 import './pages/training/training.dart';
-
-
-
-
+import './pages/complain/complain-list.dart';
+import './pages/complain/complain-box.dart';
 
 
 import './pages/privacy_policy/privacy_policy.dart';
-
 
 void main() => runApp(MyApp());
 
@@ -61,6 +58,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    print('build main');
     return ScopedModel<MainModel>(
       model: _model,
       child: MaterialApp(
@@ -146,6 +144,14 @@ class _MyAppState extends State<MyApp> {
           _userMode == HomePageMode.not_authenticated
               ? LoginPage(_model)
               : TrainingPage(_model),
+          '/complain-list': (BuildContext context) =>
+          _userMode == HomePageMode.not_authenticated
+              ? LoginPage(_model)
+              : ComplainPage(_model),
+          '/complain-box': (BuildContext context) =>
+          _userMode == HomePageMode.not_authenticated
+              ? LoginPage(_model)
+              : ComplainBoxPage(_model),
         },
         onGenerateRoute: (RouteSettings settings) {
           print(settings);

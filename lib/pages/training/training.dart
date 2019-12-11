@@ -26,17 +26,23 @@ class TrainingPageState extends State<TrainingPage> {
   @override
   void initState() {
     doit();
+  print('in initstate');
+//    _trainings = list;
+
     super.initState();
   }
 
   void doit() async {
     _trainings = await GetCompanies();
+    setState(() {
+      isloading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: drawer(context, widget.model.logout),
+      drawer: drawer(context, widget.model.logout, widget.model),
       appBar: AppBar(
         title: Text('Training'),
         backgroundColor: Colors.lightBlueAccent,
@@ -128,22 +134,35 @@ class TrainingPageState extends State<TrainingPage> {
     setState(() {
       isloading = true;
     });
-    String link = 'http://' + '10.0.55.62:8000' + '/sales/restcustomer/';
-    print(link);
+//    String link = 'http://' + '10.0.51.119:8000' + '/sales/restcustomer/';
+//    print(link);
+//
+//    final responseBody = await http.get(
+//      link,
+//      headers: {
+//        'Content-Type': 'application/json',
+//      },
+//    );
+//
+//    final list = json.decode(responseBody.body);
+//    print(list);
 
-    final responseBody = await http.get(
-      link,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    );
 
-    final list = json.decode(responseBody.body);
-    print(list);
-    setState(() {
-      isloading = false;
-    });
     return list;
+
+
   }
 }
+
+List<dynamic> list = [
+  {'trainer': 'teacher', 'trainee': 'student', 'start_date': '12 Dec, 2019', 'end_date': '12 Dec, 2019', 'description': 'Lorem ipson'},
+  {'trainer': 'teacher', 'trainee': 'student', 'start_date': '12 Dec, 2019', 'end_date': '12 Dec, 2019', 'description': 'Lorem ipson'},
+  {'trainer': 'teacher', 'trainee': 'student', 'start_date': '12 Dec, 2019', 'end_date': '12 Dec, 2019', 'description': 'Lorem ipson'},
+  {'trainer': 'teacher', 'trainee': 'student', 'start_date': '12 Dec, 2019', 'end_date': '12 Dec, 2019', 'description': 'Lorem ipson'},
+  {'trainer': 'teacher', 'trainee': 'student', 'start_date': '12 Dec, 2019', 'end_date': '12 Dec, 2019', 'description': 'Lorem ipson'},
+  {'trainer': 'teacher', 'trainee': 'student', 'start_date': '12 Dec, 2019', 'end_date': '12 Dec, 2019', 'description': 'Lorem ipson'},
+  {'trainer': 'teacher', 'trainee': 'student', 'start_date': '12 Dec, 2019', 'end_date': '12 Dec, 2019', 'description': 'Lorem ipson'},
+  {'trainer': 'teacher', 'trainee': 'student', 'start_date': '12 Dec, 2019', 'end_date': '12 Dec, 2019', 'description': 'Lorem ipson'},
+
+];
 

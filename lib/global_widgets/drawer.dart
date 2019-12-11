@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
+import '../scoped_models/main.dart';
 
-Widget drawer(BuildContext context, Function logout) {
+Widget drawer(BuildContext context, Function logout, MainModel model) {
   final name = ModalRoute.of(context).settings.name;
   return Drawer(
     child: ListView(
@@ -9,14 +10,14 @@ Widget drawer(BuildContext context, Function logout) {
         Padding(
           padding: const EdgeInsets.only(top: 15.0, bottom: 5, left: 10),
           child: Text(
-              'logged in username',
+              model.authenticatedUser.username == null ? "" : model.authenticatedUser.username,
               style: TextStyle(color: Colors.black, fontSize: 17),
             ),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 5.0, bottom: 10, left: 10),
           child: Text(
-            'logged in email',
+            model.authenticatedUser.email == null ? "" : model.authenticatedUser.email,
             style: TextStyle(color: Colors.black54, fontSize: 16),
           ),
         ),
@@ -31,21 +32,11 @@ Widget drawer(BuildContext context, Function logout) {
           leading: Icon(Icons.home),
           onTap: () {
             Navigator.pop(context);
-            if (name != "/") Navigator.pushNamed(context, '/');
+//            if (name != "/") Navigator.pushNamed(context, '/');
+              if(name != '/') Navigator.popUntil(context, ModalRoute.withName('/'));
           },
         ),
-        ListTile(
-          selected: name == '/about' ? true : false,
-          title: Text(
-            'About',
-            style: TextStyle(fontSize: 16, color: Colors.blueGrey),
-          ),
-          leading: Icon(Icons.account_balance),
-          onTap: () {
-            Navigator.pop(context);
-            if (name != "/about") Navigator.pushNamed(context, '/about');
-          },
-        ),
+
         ListTile(
           selected: name == '/sales' ? true : false,
           title: Text(
@@ -59,32 +50,7 @@ Widget drawer(BuildContext context, Function logout) {
           },
         ),
 
-        ListTile(
-          selected: name == '/add-product' ? true : false,
-          title: Text(
-            'Add Product',
-            style: TextStyle(fontSize: 16, color: Colors.blueGrey),
-          ),
-          leading: Icon(Icons.add_shopping_cart),
-          onTap: () {
-            Navigator.pop(context);
-            if (name != "/add-product")
-              Navigator.pushNamed(context, '/add-product');
-          },
-        ),
-        ListTile(
-          selected: name == '/add-meeting' ? true : false,
-          title: Text(
-            'Add Meeting',
-            style: TextStyle(fontSize: 16, color: Colors.blueGrey),
-          ),
-          leading: Icon(Icons.group_add),
-          onTap: () {
-            Navigator.pop(context);
-            if (name != "/add-meeting")
-              Navigator.pushNamed(context, '/add-meeting');
-          },
-        ),
+
         ListTile(
           selected: name == '/meeting-list' ? true : false,
           title: Text(
@@ -149,6 +115,77 @@ Widget drawer(BuildContext context, Function logout) {
           },
         ),
         ListTile(
+          selected: name == '/complain-list' ? true : false,
+          title: Text(
+            'Complains',
+            style: TextStyle(fontSize: 16, color: Colors.blueGrey),
+          ),
+          leading: Icon(Icons.work),
+          onTap: () {
+            Navigator.pop(context);
+            if (name != "/complain-list") Navigator.pushNamed(context, '/complain-list');
+          },
+        ),
+
+
+
+
+
+
+        Divider(),
+
+        ListTile(
+          selected: name == '/add-product' ? true : false,
+          title: Text(
+            'Add Product',
+            style: TextStyle(fontSize: 16, color: Colors.blueGrey),
+          ),
+          leading: Icon(Icons.add_shopping_cart),
+          onTap: () {
+            Navigator.pop(context);
+            if (name != "/add-product")
+              Navigator.pushNamed(context, '/add-product');
+          },
+        ),
+        ListTile(
+          selected: name == '/add-meeting' ? true : false,
+          title: Text(
+            'Add Meeting',
+            style: TextStyle(fontSize: 16, color: Colors.blueGrey),
+          ),
+          leading: Icon(Icons.group_add),
+          onTap: () {
+            Navigator.pop(context);
+            if (name != "/add-meeting")
+              Navigator.pushNamed(context, '/add-meeting');
+          },
+        ),
+        ListTile(
+          selected: name == '/complain-box' ? true : false,
+          title: Text(
+            'Complain Box',
+            style: TextStyle(fontSize: 16, color: Colors.blueGrey),
+          ),
+          leading: Icon(Icons.work),
+          onTap: () {
+            Navigator.pop(context);
+            if (name != "/complain-box") Navigator.pushNamed(context, '/complain-box');
+          },
+        ),
+
+
+
+
+
+
+
+
+
+
+
+        Divider(),
+
+        ListTile(
           title: Text(
             'Privacy and Policy',
             style: TextStyle(fontSize: 16, color: Colors.blueGrey),
@@ -158,6 +195,18 @@ Widget drawer(BuildContext context, Function logout) {
             Navigator.pop(context);
             if (name != "/privacy-policy")
               Navigator.pushNamed(context, '/privacy-policy');
+          },
+        ),
+        ListTile(
+          selected: name == '/about' ? true : false,
+          title: Text(
+            'About',
+            style: TextStyle(fontSize: 16, color: Colors.blueGrey),
+          ),
+          leading: Icon(Icons.account_balance),
+          onTap: () {
+            Navigator.pop(context);
+            if (name != "/about") Navigator.pushNamed(context, '/about');
           },
         ),
         Divider(),

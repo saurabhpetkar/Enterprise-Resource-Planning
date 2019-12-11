@@ -246,7 +246,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
         cap = _controller1.text.contains(new RegExp(r'[A-Z]'), 0);
         sym = _controller1.text.isNotEmpty &&
             !_controller1.text
-                .contains(RegExp(r'^[<>/,!@#%&*()?;:-=\w&.-]+$'), 0);
+                .contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'), 0);
       });
     });
     super.initState();

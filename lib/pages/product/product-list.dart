@@ -29,7 +29,7 @@ class ProductListPageState extends State<ProductListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: drawer(context, widget.model.logout),
+      drawer: drawer(context, widget.model.logout, widget.model),
       appBar: AppBar(
         title: Text('Products'),
         backgroundColor: Colors.lightBlueAccent,

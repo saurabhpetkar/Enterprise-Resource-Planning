@@ -33,7 +33,7 @@ class MeetingListPageState extends State<MeetingListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: drawer(context, widget.model.logout),
+        drawer: drawer(context, widget.model.logout, widget.model),
         appBar: AppBar(
           title: Text('Meetings'),
           backgroundColor: Colors.lightBlueAccent,
@@ -75,14 +75,14 @@ class MeetingListPageState extends State<MeetingListPage> {
                                       Expanded(
                                         flex: 2,
                                         child: Text(
-                                          _meetings[index]['organiser'],
+                                          _meetings[index]['organiser'].toString(),
                                           style: TextStyle(fontSize: 17, fontFamily: 'UbuntuMono',fontWeight: FontWeight.w600,),
                                         ),
                                       ),
                                       Expanded(
                                         flex: 1,
                                         child: Text(
-                                          _meetings[index]['description'],
+                                          _meetings[index]['description'].toString(),
                                           style: TextStyle(
                                               fontSize: 14, color: Colors.grey),
                                         ),
@@ -118,93 +118,87 @@ class MeetingListPageState extends State<MeetingListPage> {
     setState(() {
       isloading = true;
     });
-    http.Response response = await http
-        .get('http://10.0.51.119:8000/hr/meetinglist/');
+//    http.Response response = await http
+//        .get('http://10.0.51.119:8000/hr/meetinglist/');
+//    print('meeting status code');
 
-    final d = response.body;
-    final list = json.decode(d);
+//    String error_message = "Couldn't fetch the meeting list, please try again later";
+//
+//    print(response.statusCode);
+//
+//    final d = response.body;
+//    final list = json.decode(d);
 
 
 
-//    _meetings = [
-//      {
-//        'topic': 'Backend work',
-//        'description':
-//            'Backend work has to be done today at any cost, please do anything inorder to complete it.',
-//        'day': 1,
-//        'month': 'JAN',
-//        'id': 1
-//      },
-//      {
-//        'topic': 'Frontend work',
-//        'description': 'Frontend work has to be done today.',
-//        'day': 1,
-//        'month': 'JAN',
-//        'id': 2
-//      },
-//      {
-//        'topic': 'API work',
-//        'description': 'API work has to be done today.',
-//        'day': 1,
-//        'month': 'JAN',
-//        'id': 3
-//      },
-//      {
-//        'topic': 'Flutter work',
-//        'description': 'Flutter work has to be done today.',
-//        'day': 1,
-//        'month': 'JAN',
-//        'id': 4
-//      },
-//      {
-//        'topic': 'Node js work',
-//        'description': 'Node js work has to be done today.',
-//        'day': 1,
-//        'month': 'JAN',
-//        'id': 5
-//      },
-//      {
-//        'topic': 'Django work',
-//        'description': 'Django work has to be done today.',
-//        'day': 1,
-//        'month': 'JAN',
-//        'id': 6
-//      },
-//      {
-//        'topic': 'Firebase work',
-//        'description': 'Firebase work has to be done today.',
-//        'day': 1,
-//        'month': 'JAN',
-//        'id': 7
-//      },
-//      {
-//        'topic': 'Flask work',
-//        'description': 'Flask work has to be done today.',
-//        'day': 1,
-//        'month': 'JAN',
-//        'id': 8
-//      },
-//      {
-//        'topic': 'Adobe work',
-//        'description': 'Adobe work has to be done today.',
-//        'day': 1,
-//        'month': 'JAN',
-//        'id': 9
-//      },
-//      {
-//        'topic': 'Backend work',
-//        'description': 'Backend work has to be done today.',
-//        'day': 1,
-//        'month': 'JAN',
-//        'id': 10
-//      },
-//    ];
+    _meetings = [
+      {
+        'organiser': 'Backend work',
+        'description':
+            'Backend work has to be done today at any cost, please do anything inorder to complete it.',
+        'date': '11 Dec, 2019'
+      },
+      {
+        'organiser': 'Frontend work',
+        'description': 'Frontend work has to be done today.',
+        'date': '11 Dec, 2019'
+
+      },
+      {
+        'organiser': 'API work',
+        'description': 'API work has to be done today.',
+        'date': '11 Dec, 2019'
+
+      },
+      {
+        'organiser': 'Flutter work',
+        'description': 'Flutter work has to be done today.',
+        'date': '11 Dec, 2019'
+
+      },
+      {
+        'organiser': 'Node js work',
+        'description': 'Node js work has to be done today.',
+        'date': '11 Dec, 2019'
+
+      },
+      {
+        'organiser': 'Django work',
+        'description': 'Django work has to be done today.',
+        'date': '11 Dec, 2019'
+
+      },
+      {
+        'organiser': 'Firebase work',
+        'description': 'Firebase work has to be done today.',
+        'date': '11 Dec, 2019'
+
+      },
+      {
+        'organiser': 'Flask work',
+        'description': 'Flask work has to be done today.',
+        'date': '11 Dec, 2019'
+
+      },
+      {
+        'organiser': 'Adobe work',
+        'description': 'Adobe work has to be done today.',
+        'date': '11 Dec, 2019'
+
+      },
+      {
+        'organiser': 'Backend work',
+        'description': 'Backend work has to be done today.',
+        'date': '11 Dec, 2019'
+
+      },
+    ];
 
     setState(() {
       isloading = false;
     });
 
-    return list;
+    return _meetings;
   }
 }
 
