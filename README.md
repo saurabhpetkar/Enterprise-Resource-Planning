@@ -1,6 +1,6 @@
-# soad_project
+# Service Oriented Application Development Project
 
-An ERP (ENterprise Resource Planning) project.
+An ERP (Enterprise Resource Planning) project.
 
 ## Getting Started
 
